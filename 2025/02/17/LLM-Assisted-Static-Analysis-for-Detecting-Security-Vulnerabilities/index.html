@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>LLM-Assisted Static Analysis for Detecting Security Vulnerabilities | Jack&#39;s Bizarre Adventure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Ziyang Li, Saikat Dutta, Mayur Naik  IntroductionSecurity vulnerabilities pose a significant threat to software applications, with over 29,000 CVEs reported in 2023. Detecting these vulnerabilities re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LLM-Assisted Static Analysis for Detecting Security Vulnerabilities">
+<meta property="og:url" content="http://example.com/2025/02/17/LLM-Assisted-Static-Analysis-for-Detecting-Security-Vulnerabilities/index.html">
+<meta property="og:site_name" content="Jack&#39;s Bizarre Adventure">
+<meta property="og:description" content="Ziyang Li, Saikat Dutta, Mayur Naik  IntroductionSecurity vulnerabilities pose a significant threat to software applications, with over 29,000 CVEs reported in 2023. Detecting these vulnerabilities re">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/code_incjection.png">
+<meta property="og:image" content="http://example.com/images/llmstaticanlysis.png">
+<meta property="og:image" content="http://example.com/images/llmstatic/benchmark1.png">
+<meta property="og:image" content="http://example.com/images/llmstatic/benchmark2.png">
+<meta property="og:image" content="http://example.com/images/llmstatic/benchmark3.png">
+<meta property="og:image" content="http://example.com/images/llmstatic/benchmark4.png">
+<meta property="article:published_time" content="2025-02-17T01:30:49.000Z">
+<meta property="article:modified_time" content="2025-02-17T07:11:06.189Z">
+<meta property="article:author" content="Jack Luo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/code_incjection.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Jack's Bizarre Adventure" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Jack&#39;s Bizarre Adventure</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-LLM-Assisted-Static-Analysis-for-Detecting-Security-Vulnerabilities" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/17/LLM-Assisted-Static-Analysis-for-Detecting-Security-Vulnerabilities/" class="article-date">
+  <time class="dt-published" datetime="2025-02-17T01:30:49.000Z" itemprop="datePublished">2025-02-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      LLM-Assisted Static Analysis for Detecting Security Vulnerabilities
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><em>Ziyang Li, Saikat Dutta, Mayur Naik</em></p>
+<hr>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Security vulnerabilities pose a significant threat to software applications, with over 29,000 CVEs reported in 2023. Detecting these vulnerabilities remains challenging despite advancements in static taint analysis, which is used in tools like GitHub CodeQL and Facebook Infer. However, existing static analysis tools suffer from false negatives (due to missing taint specifications for third-party libraries) and false positives (caused by imprecise context-sensitive reasoning).</p>
+<p>Several data-driven approaches, such as MERLIN and Seldon, have been developed to improve taint specification mining, but they struggle with scalability and accuracy. Large Language Models (LLMs) have shown promise in code-related tasks but are weak in project-level reasoning, limiting their effectiveness in vulnerability detection.</p>
+<p>To address these limitations, the authors propose IRIS, a neuro-symbolic approach that combines LLMs with static taint analysis. IRIS leverages LLMs to mine CWE-specific taint specifications and enhances static analysis tools like CodeQL. It also applies contextual analysis to reduce false positives and improve reasoning accuracy.</p>
+<h2 id="Motivatiing-Example"><a href="#Motivatiing-Example" class="headerlink" title="Motivatiing Example"></a>Motivatiing Example</h2><p>IRIS effectively detects a code injection (CWE-094) vulnerability in the cron-utils (ver. 9.1.5) Java library <img src="/images/code_incjection.png" alt="code injection">, which was previously undetected by CodeQL. The vulnerability arises when a user-controlled string is passed to the isValid function and then transferred without sanitization to the parse function. If an exception occurs, an error message is constructed using the input and processed by buildConstraintViolationWithTemplate, which interprets the message as a Java Expression Language (Java EL) expression. This allows attackers to inject malicious commands, such as Runtime.exec(‘rm -rf &#x2F;‘), leading to potential system damage.</p>
+<p>Challenges in Detection:</p>
+<ul>
+<li>Large Codebase: The cron-utils library has 13K SLOC, making vulnerability analysis complex.</li>
+<li>Data Flow Analysis: The tainted input flows across multiple internal methods and third-party APIs.</li>
+<li>Identifying Sources &amp; Sinks: The analysis must detect untrusted sources (e.g., isValid input) and vulnerable sinks (e.g.buildConstraintViolationWithTemplate).</li>
+<li>Sanitization Detection: The approach must recognize missing sanitization mechanisms.</li>
+</ul>
+<h2 id="Problem-statement"><a href="#Problem-statement" class="headerlink" title="Problem statement"></a>Problem statement</h2><p>Static taint analysis aims to detect security vulnerabilities by analyzing data flow in a program. Given a project P, taint analysis constructs an inter-procedural data flow graph  G &#x3D; (V, E) , where:</p>
+<ul>
+<li>V represents program expressions and statements.</li>
+<li>E represents data or control flow edges.</li>
+</ul>
+<p>A vulnerability detection task involves identifying sources ( $V^C_{source}$ ), where tainted data originates, and sinks ( $V^C_{sink}$ ), where security risks occur if tainted data reaches them. Additionally, sanitizers ( $V^C_{sanitizer}$ ) prevent tainted data from propagating.</p>
+<p>The goal of taint analysis is to detect unsanitized paths from a source to a sink, i.e., paths where no sanitization occurs.</p>
+<h3 id="Challenges-in-Taint-Analysis"><a href="#Challenges-in-Taint-Analysis" class="headerlink" title="Challenges in Taint Analysis:"></a>Challenges in Taint Analysis:</h3><h4 id="Identifying-Taint-Specifications"><a href="#Identifying-Taint-Specifications" class="headerlink" title="Identifying Taint Specifications"></a>Identifying Taint Specifications</h4><ul>
+<li>Different vulnerability classes (CWEs) require unique specifications for sources, sinks, and sanitizers.</li>
+<li>These specifications must be mapped to the given project’s code.</li>
+</ul>
+<h4 id="Eliminating-False-Positives"><a href="#Eliminating-False-Positives" class="headerlink" title="Eliminating False Positives"></a>Eliminating False Positives</h4><ul>
+<li>Many paths identified by taint analysis may not be genuine vulnerabilities.</li>
+<li>Filtering false positives is crucial to reduce the burden on developers.</li>
+</ul>
+<p>Solution Approach:</p>
+<p>The paper proposes leveraging LLMs to:<br>	•	Infer taint specifications dynamically for each vulnerability class.<br>	•	Improve filtering of false positives through contextual reasoning.</p>
+<h2 id="Candidate-Source-Sink-Extraction"><a href="#Candidate-Source-Sink-Extraction" class="headerlink" title="Candidate Source&#x2F;Sink Extraction"></a>Candidate Source&#x2F;Sink Extraction</h2><p>Source&#x2F;Sink selection:</p>
+<ul>
+<li>third-party APIs with unknown specifications, making taint analysis less effective.</li>
+<li>Internal APIs may also accept untrusted inputs, potentially introducing vulnerabilities.<br>Taint specifications $( S_C )$ are defined as a 3-tuple ⟨T, F, R⟩</li>
+<li>T represents the type of the node in the data flow graph (e.g., ReturnValue, Argument, Parameter).</li>
+<li>F describes API metadata (package, class, method, signature, argument&#x2F;parameter position).</li>
+<li>R defines the role of the API (Source, Sink, Taint-Propagator, or Sanitizer).</li>
+</ul>
+<p>LLM Inference Process:</p>
+<ul>
+<li>Batching APIs into a single prompt for efficiency.</li>
+<li>Few-shot learning (3-shot) for external APIs.</li>
+<li>Zero-shot learning for internal APIs, supplemented with information from README files and JavaDocs for better accuracy.</li>
+<li>Output:<br>  •    Refined taint specifications ( $S_C$  for sources and sinks) to be used in static analysis.</li>
+</ul>
+<h2 id="Vulnerability-Detection"><a href="#Vulnerability-Detection" class="headerlink" title="Vulnerability Detection"></a>Vulnerability Detection</h2><p>After obtaining source and sink specifications from LLMs, the next step is to detect vulnerable paths (i.e., unsanitized paths between sources and sinks) using a static analysis engine.</p>
+<p>Given a data flow graph  G_P  of project  P , along with taint specifications $( S_C^{source}, S_C^{sink} )$ and a vulnerability query for class  C , CodeQL identifies unsanitized paths:</p>
+<p>$CodeQL(G_P, S_C^{source}, S_C^{sink}, Query_C) &#x3D; {Path_1, \dots, Path_k}$</p>
+<p>To improve detection, customized CodeQL queries are written using LLM-mined specifications instead of relying solely on built-in specifications.<img src="/images/llmstaticanlysis.png" alt="example"></p>
+<h2 id="Alert-Triaging-via-Contextual-Analysis"><a href="#Alert-Triaging-via-Contextual-Analysis" class="headerlink" title="Alert Triaging via Contextual Analysis"></a>Alert Triaging via Contextual Analysis</h2><p>Even with LLM-enhanced taint analysis, some irrelevant specifications may be detected, leading to an excessive number of alerts (many of which are false positives).</p>
+<p>Contextual Analysis Process:</p>
+<ul>
+<li>A prompt is constructed, containing:</li>
+<li>CWE information</li>
+<li>Code snippets around the source and sink (±5 lines for context)</li>
+<li>The enclosing function and class</li>
+<li>File names and intermediate steps</li>
+<li>If the path is too long, only a subset of nodes is included to limit prompt size.</li>
+<li>This full context helps the LLM make an accurate classification of vulnerabilities.</li>
+</ul>
+<h2 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h2><ul>
+<li>Number of Vulnerabilities Detected (#Detected)</li>
+<li>Average False Discovery Rate (AvgFDR) $AvgFDR(D) &#x3D; Avg_{P ∈D, |Paths_P| &gt; 0}(1 - Prec(P))$</li>
+<li>Average F1 Score $AvgF1(D) &#x3D; \frac{1}{|D|} \sum_{P∈D} \frac{2 \cdot Prec(P) \cdot Rec(P)}{Prec(P) + Rec(P)}$</li>
+</ul>
+<h3 id="dataset"><a href="#dataset" class="headerlink" title="dataset"></a>dataset</h3><p>4 CWE-Bench-Java: A Dataset of Security Vulnerabilities in Java</p>
+<h3 id="RQ-1-How-many-previously-known-vulnerabilities-can-IRIS-detect"><a href="#RQ-1-How-many-previously-known-vulnerabilities-can-IRIS-detect" class="headerlink" title="RQ 1: How many previously known vulnerabilities can IRIS detect?"></a>RQ 1: How many previously known vulnerabilities can IRIS detect?</h3><p><img src="/images/llmstatic/benchmark1.png" alt="Overall performance comparison of CodeQL vs IRIS on Detection Rate"><br><img src="/images/llmstatic/benchmark2.png" alt="Per-CWE statistics of number of vulnerabilities detected (#Detected) by baselines and IRIS"></p>
+<h3 id="RQ-2-Does-IRIS-detect-new-previously-unknown-vulnerabilities"><a href="#RQ-2-Does-IRIS-detect-new-previously-unknown-vulnerabilities" class="headerlink" title="RQ 2: Does IRIS detect new, previously unknown vulnerabilities?"></a>RQ 2: Does IRIS detect new, previously unknown vulnerabilities?</h3><p>Authors applied IRIS with GPT-4 to the latest versions of 30 Java projects. Among the 16 inspected rojects where IRIS raised at least one alert, we identified 6 potential vulnerabilities, of which 4<br>have been reported to the developers and are pending confirmation. These reported vulnerabilities include 3 instances of path injection (CWE-22) and one case of cross-site scripting (CWE-94). To ensure that these vulnerabilities were indeed uncovered due to IRIS’s integration with LLMs, we verified that they were not detectable by CodeQL alone. Detailed findings are presented in the<br>appendix, but we highlight one such vulnerability in Fig. 8. CodeQL was unable to detect this issue due to a missing source specification, while GPT-4 successfully flagged the API endpoint restoreFromCheckpoint as a potential entry point for attack.</p>
+<h3 id="RQ-3-How-good-are-the-inferred-source-sink-specifications-by-IRIS"><a href="#RQ-3-How-good-are-the-inferred-source-sink-specifications-by-IRIS" class="headerlink" title="RQ 3: How good are the inferred source&#x2F;sink specifications by IRIS?"></a>RQ 3: How good are the inferred source&#x2F;sink specifications by IRIS?</h3><p><img src="/images/llmstatic/benchmark3.png" alt="Per-CWE statistics of number of vulnerabilities detected (#Detected) by baselines and IRIS"></p>
+<h3 id="RQ-4-How-effective-are-the-individual-components-of-IRIS"><a href="#RQ-4-How-effective-are-the-individual-components-of-IRIS" class="headerlink" title="RQ 4: How effective are the individual components of IRIS?"></a>RQ 4: How effective are the individual components of IRIS?</h3><p><img src="/images/llmstatic/benchmark4.png" alt="Ablation on LLM inferred source and sink specifications (CodeQL (QL) versus GPT-4)"></p>
+<h2 id="Limitation"><a href="#Limitation" class="headerlink" title="Limitation"></a>Limitation</h2><p>There are still many vulnerabilities that IRIS cannot detect. Future approaches may explore a tighter integration of these two tools to improve performance. In addition, IRIS makes<br>numerous calls to LLMs for specification inference and filtering false positives, increasing the po-tential cost of analysis. While our results on Java are promising, it is unknown if IRIS will perform well on other languages. Moreover, there is still a gap between the IRIS generated report and the report that the developers would like to see. We plan to explore this further in future work.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/17/LLM-Assisted-Static-Analysis-for-Detecting-Security-Vulnerabilities/" data-id="cm78pza7w0001vo9ka06egmoh" data-title="LLM-Assisted Static Analysis for Detecting Security Vulnerabilities" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/02/06/Error-Correcting-Earley-Parser-Phase-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Error Correcting Earley Parser Phase.1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/02/17/LLM-Assisted-Static-Analysis-for-Detecting-Security-Vulnerabilities/">LLM-Assisted Static Analysis for Detecting Security Vulnerabilities</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/06/Error-Correcting-Earley-Parser-Phase-1/">Error Correcting Earley Parser Phase.1</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/06/Paper-Review-Agentless/">Paper Review: Agentless Automated Program Repair</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 Jack Luo<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

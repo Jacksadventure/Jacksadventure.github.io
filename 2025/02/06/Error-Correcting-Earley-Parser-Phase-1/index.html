@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Error Correcting Earley Parser Phase.1 | Jack&#39;s Bizarre Adventure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Introduction Parsing is a fundamental concept in computer science, especially in compiler construction, natural language processing, and syntactic analysis. One of the most powerful and flexible parsi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Error Correcting Earley Parser Phase.1">
+<meta property="og:url" content="http://example.com/2025/02/06/Error-Correcting-Earley-Parser-Phase-1/index.html">
+<meta property="og:site_name" content="Jack&#39;s Bizarre Adventure">
+<meta property="og:description" content="Introduction Parsing is a fundamental concept in computer science, especially in compiler construction, natural language processing, and syntactic analysis. One of the most powerful and flexible parsi">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-02-06T09:59:21.000Z">
+<meta property="article:modified_time" content="2025-02-07T05:18:41.302Z">
+<meta property="article:author" content="Jack Luo">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Jack's Bizarre Adventure" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Jack&#39;s Bizarre Adventure</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Error-Correcting-Earley-Parser-Phase-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/06/Error-Correcting-Earley-Parser-Phase-1/" class="article-date">
+  <time class="dt-published" datetime="2025-02-06T09:59:21.000Z" itemprop="datePublished">2025-02-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Error Correcting Earley Parser Phase.1
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><blockquote>
+<p>Parsing is a fundamental concept in computer science, especially in compiler construction, natural language processing, and syntactic analysis. One of the most powerful and flexible parsing algorithms is the Earley parser, designed by Jay Earley in 1970.The Earley parser is a chart parsing algorithm designed to parse all context-free grammars (CFGs), including ambiguous and left-recursive ones.</p>
+</blockquote>
+<p>This blog post explores how the Earley parser works.</p>
+<h2 id="Explanation-of-the-mechanism"><a href="#Explanation-of-the-mechanism" class="headerlink" title="Explanation of the mechanism"></a>Explanation of the mechanism</h2><h3 id="Data-struicture"><a href="#Data-struicture" class="headerlink" title="Data struicture"></a>Data struicture</h3><p>The input string is processed from left to right, and a state set is created for each input position. Each state in a state set consists of:</p>
+<ul>
+<li><p>A rule from the grammar</p>
+</li>
+<li><p>A dot indicating parsing progress</p>
+</li>
+<li><p>A start position in the input</p>
+</li>
+<li><p>A current position in the input</p>
+</li>
+</ul>
+<h3 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h3><p>For each word in the input, three operations are applied to update the state sets:</p>
+<ul>
+<li>Prediction (Expanding Non-Terminals)<br>If the parser encounters a non-terminal after the dot, it predicts all production rules for that non-terminal.</li>
+</ul>
+<p>These rules are added to the current state set with the dot at the beginning.</p>
+<ul>
+<li><p>Scanning (Matching Terminals)<br>If the next symbol in a rule is a terminal and matches the current input token, the state advances by shifting the dot forward.</p>
+</li>
+<li><p>Completion (Handling Finished Rules)<br>If a rule is completed (the dot reaches the end of a production), it triggers a backward lookup to advance any previous rules that were waiting for this completed non-terminal.</p>
+</li>
+</ul>
+<p>At the end of parsing, if there exists a completed rule covering the entire input starting from position 0, then the input is accepted by the grammar.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Let’s consider a simple CFG:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">S → NP VP</span><br><span class="line">NP → &quot;she&quot; | &quot;the cat&quot;</span><br><span class="line">VP → V NP</span><br><span class="line">V → &quot;chased&quot;</span><br></pre></td></tr></table></figure>
+<p>For input: “she chased the cat”, the Earley parser follows these steps:</p>
+<ul>
+<li><p>Prediction: Expands S → NP VP, adds NP → she and NP → the cat.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Current state: input[0] =&quot;&quot; </span><br><span class="line">S → (dot)NP VP</span><br></pre></td></tr></table></figure></li>
+<li><p>Scanning: Matches “she” with NP → she, advances dot.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Current state: input[1] =&quot;she&quot; </span><br><span class="line">NP → she(dot)</span><br><span class="line">S → (dot)NP VP</span><br></pre></td></tr></table></figure></li>
+<li><p>Completion: Since NP is completed, moves to VP.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Current state: input[1] =&quot;she&quot; </span><br><span class="line">update: S → NP (dot) VP</span><br></pre></td></tr></table></figure></li>
+<li><p>Prediction: Expands VP → V NP, adds V → chased.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Current state: input[2] =&quot;chased&quot; </span><br><span class="line">S → NP(dot) VP</span><br><span class="line">VP → (dot)V NP</span><br><span class="line">v → (dot)chased</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Scanning: Matches “chased”, moves to NP.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Current state: input[2] =&quot;chased&quot; </span><br><span class="line">S → NP(dot) VP</span><br><span class="line">v → chased(dot)</span><br><span class="line">update: VP → V(dot)NP</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Prediction &amp; Scanning: Matches “the cat” as NP.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Current state:input[4:6]=[&quot;The&quot;,&quot;cat&quot;]</span><br><span class="line">S → NP(dot) VP</span><br><span class="line">VP → V(dot)NP</span><br><span class="line">NP → the cat(dot)</span><br></pre></td></tr></table></figure></li>
+<li><p>Completion: The full sentence matches S → NP VP, parsing succeeds!</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Current state:input[4:6]=[&quot;The&quot;,&quot;cat&quot;]</span><br><span class="line">update: VP → V NP(dot)</span><br><span class="line">update: S → NP VP(dot)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>As demonstrated in the presentation, the Earley Parser always starts parsing from the current position and updates the parsing progress in a backward direction. The parser treats each token as an independent syntactic unit, meaning that even if there are minor errors in the input text, they do not affect the parsing of subsequent syntax. This makes error correction possible. In the next section, we will discuss how to use the Earley Parser for correcting erroneous text.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/06/Error-Correcting-Earley-Parser-Phase-1/" data-id="cm78pza7u0000vo9kef7n1ggc" data-title="Error Correcting Earley Parser Phase.1" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/02/17/LLM-Assisted-Static-Analysis-for-Detecting-Security-Vulnerabilities/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          LLM-Assisted Static Analysis for Detecting Security Vulnerabilities
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/02/06/Paper-Review-Agentless/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Paper Review: Agentless Automated Program Repair</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/02/17/LLM-Assisted-Static-Analysis-for-Detecting-Security-Vulnerabilities/">LLM-Assisted Static Analysis for Detecting Security Vulnerabilities</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/06/Error-Correcting-Earley-Parser-Phase-1/">Error Correcting Earley Parser Phase.1</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/06/Paper-Review-Agentless/">Paper Review: Agentless Automated Program Repair</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 Jack Luo<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
