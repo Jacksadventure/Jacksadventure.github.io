@@ -5,6 +5,10 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+# 👇 关键：给 GITHUB_TOKEN 写权限
+permissions:
+  contents: write
+
 jobs:
   jekyll:
     runs-on: ubuntu-latest
@@ -20,7 +24,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y imagemagick webp
 
-      # 关键：安装 Python 与 Jupyter（提供 jupyter / nbconvert 可执行文件）
+      # 若保留 jekyll-jupyter-notebook，这两步必需
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -40,6 +44,8 @@ jobs:
           npm ci || true
 
       - name: Build site
+        env:
+          JEKYLL_ENV: production
         run: bundle exec jekyll build --trace
 
       - name: Deploy to gh-pages
@@ -48,3 +54,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./_site
           publish_branch: gh-pages
+          # 首次发布或 gh-pages 不存在/受保护时可临时打开这一行
+          # force_orphan: true
