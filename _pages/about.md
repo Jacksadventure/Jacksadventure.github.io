@@ -29,8 +29,8 @@ latest_posts:
 
 # Education
 - **MPhil. in Computer Science**, University of Sydney (2024–Present)  
-  Supervisors: Rahul Gopinath, Xi Wu  
-  Collaborators: Hong Jin Kang
+  Supervisors: [Rahul Gopinath](https://rahul.gopinath.org), Xi Wu  
+  Collaborators: [Hong Jin Kang](https://kanghj.github.io)
 
 - **BSc in Software Engineering**, Hebei University (2018–2022)  
   GPA: 82.08%
