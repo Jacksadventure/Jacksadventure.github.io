@@ -1,4 +1,5 @@
 name: Build and Deploy al-folio
+
 on:
   push:
     branches: [ main ]
@@ -7,20 +8,31 @@ on:
 jobs:
   jekyll:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      # （可选）装 ImageMagick，见第2节
+      - name: Install ImageMagick
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick webp
+
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
           bundler-cache: true
+
       - name: Install deps
         run: |
           bundle install
           npm ci || true
+
       - name: Build site
         run: bundle exec jekyll build --trace
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
