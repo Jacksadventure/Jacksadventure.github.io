@@ -1,0 +1,33 @@
+I"Þ<!-- pages/projects.md -->
+<div class="projects">
+
+  <!-- Display categorized projects -->
+  
+  <a id="work" href=".#work">
+    <h2 class="category">work</h2>
+  </a>
+  
+  
+  <!-- Generate cards for each project -->
+  
+  <div class="row row-cols-1 row-cols-md-3">
+    
+  </div>
+  
+  
+  <a id="fun" href=".#fun">
+    <h2 class="category">fun</h2>
+  </a>
+  
+  
+  <!-- Generate cards for each project -->
+  
+  <div class="row row-cols-1 row-cols-md-3">
+    
+  </div>
+  
+  
+
+
+</div>
+:ET

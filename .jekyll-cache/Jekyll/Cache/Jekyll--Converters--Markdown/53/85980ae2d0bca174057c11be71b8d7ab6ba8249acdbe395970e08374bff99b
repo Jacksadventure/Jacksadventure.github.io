@@ -1,0 +1,32 @@
+I"!<p>Hi, I’m Zijian (Jack) Luo, a Master of Philosophy(Mphil.) student in Computer Science at the University of Sydney, supervised by Dr. Rahul Gopinath and Dr. Xi Wu. I am also a Research Assistant at Oracle Labs, where I focus on applying Large Language Models to real-world software engineering challenges, including automated program repair, fuzzing, and symbolic execution. My work has led to publications at top-tier venues such as ISSRE 2025 (Core A) and ICSME 2025 (Core A), and I actively maintain open-source projects like Grammar_bench and Readme2artifacts.</p>
+
+<h1 id="education">Education</h1>
+<ul>
+  <li>
+    <p><strong>MPhil. in Computer Science</strong>, University of Sydney (2024–Present)<br />
+Supervisors: <a href="https://rahul.gopinath.org">Rahul Gopinath</a>, Xi Wu<br />
+Collaborators: <a href="https://kanghj.github.io">Hong Jin Kang</a></p>
+  </li>
+  <li>
+    <p><strong>BSc in Software Engineering</strong>, Hebei University (2018–2022)<br />
+GPA: 82.08%</p>
+  </li>
+</ul>
+
+<h1 id="work-experience">Work Experience</h1>
+<ul>
+  <li><strong>Research Assistant, Oracle Labs</strong> (May 2025–Present, Brisbane&amp;Seattle, Full-time) 
+Applying LLMs to enhance software testing and automated program repair.
+Collaborating with a team of researchers to develop innovative solutions for real-world software engineering challenges.</li>
+</ul>
+
+<h1 id="skills">Skills</h1>
+<ul>
+  <li><strong>Software Testing &amp; Security</strong>: Fuzzing, Symbolic Execution, Dataflow Analysis, Dynamic Analysis</li>
+  <li><strong>Programming Languages &amp; Tools</strong>: C/C++, LLVM, Docker, Ghidra, Pwndbg, Reverse Engineering</li>
+  <li><strong>Software Engineering</strong>: Automated Program Repair, Programming Language Toolchains, LLM-based Agents</li>
+</ul>
+
+<h1 id="publications">Publications</h1>
+
+:ET
