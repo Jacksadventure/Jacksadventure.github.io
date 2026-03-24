@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zijian (Jack) Luo | MPhil in CS & Researcher</title>
+    <meta name="description"
+        content="Personal homepage of Zijian (Jack) Luo, focusing on Automated Program Input Repair, Fuzzing, and Software Engineering.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="#" class="logo">ZL</a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#experience">Experience</a>
+                <a href="#publications">Publications</a>
+                <a href="#projects">Projects</a>
+                <a href="assets/pdf/CV_Jack_Luo.pdf" target="_blank" class="nav-btn">Resume</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero reveal">
+            <h2 class="greeting">Hi, I'm</h2>
+            <h1 class="name">Zijian (Jack) Luo</h1>
+            <h3 class="title">CS Researcher & Software Engineer.</h3>
+            <p class="bio">
+                I am an MPhil student in Computer Science at The University of Sydney, specializing in
+                <span class="highlight">Automated Program Input Repair</span> and <span
+                    class="highlight">Fuzzing</span>.
+                I strive to build robust frameworks that seamlessly patch systems and uncover intrinsic program
+                structures without heavy manual specifications.
+            </p>
+            <div class="social-links">
+                <a href="mailto:zijianluo2000@gmail.com" class="social-icon">Email</a>
+                <a href="https://github.com/Jacksadventure" target="_blank" class="social-icon">GitHub</a>
+                <a href="http://www.linkedin.com/in/jack-luo-5647b128b" target="_blank" class="social-icon">LinkedIn</a>
+                <a href="https://scholar.google.com/citations?user=gSCCDf4AAAAJ&hl=en" target="_blank"
+                    class="social-icon">Scholar</a>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="about" class="reveal section-padding">
+            <h2 class="section-title">Education</h2>
+            <div class="timeline">
+                <div class="glass-card timeline-item">
+                    <div class="timeline-header">
+                        <h4>Master of Philosophy (MPhil) in Computer Science</h4>
+                        <span class="date">Mar 2024 – Mar 2026</span>
+                    </div>
+                    <div class="organization">The University of Sydney (Sydney, Australia)</div>
+                    <ul class="duties">
+                        <li><strong>Thesis:</strong> Automated Program Input Repair</li>
+                        <li><strong>Supervised by:</strong> Dr. Rahul Gopinath</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card timeline-item">
+                    <div class="timeline-header">
+                        <h4>Bachelor of Engineering (B.Eng.) in Software Engineering</h4>
+                        <span class="date">Sep 2018 – Jun 2022</span>
+                    </div>
+                    <div class="organization">Hebei University (Hebei, China)</div>
+                    <ul class="duties">
+                        <li><strong>GPA:</strong> 82.08 / 100</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="reveal section-padding">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="timeline">
+                <div class="glass-card timeline-item">
+                    <div class="timeline-header">
+                        <h4>Research Intern</h4>
+                        <span class="date">Mar 2026 – Present</span>
+                    </div>
+                    <div class="organization">Microsoft Research Asia (MSRA) (Beijing, China)</div>
+                    <ul class="duties">
+                        <li>Enhanced Copilot's cross-platform code migration capability by integrating a knowledge graph
+                            to model platform-specific APIs, dependencies, and migration mappings.</li>
+                        <li>Built a benchmark suite to evaluate Copilot on long-horizon software engineering tasks,
+                            measuring end-to-end planning and execution across multi-step workflows.</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card timeline-item">
+                    <div class="timeline-header">
+                        <h4>Research Assistant</h4>
+                        <span class="date">May 2025 – Oct 2025</span>
+                    </div>
+                    <div class="organization">Oracle Labs, Oracle Corporation (Brisbane, Australia)</div>
+                    <ul class="duties">
+                        <li>Conducted research on software supply-chain reliability by integrating LLMs with the Macaron
+                            framework, reproducing build artifacts for over 120 open-source repositories from
+                            Libraries.io with an <span class="highlight">80% success rate</span>.</li>
+                        <li>Designed LLM-assisted workflows for defect reproduction and static-analysis validation.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications" class="reveal section-padding">
+            <h2 class="section-title">Publications</h2>
+            <div class="grid-layout">
+                <div class="glass-card pub-card">
+                    <h4>Automatic Data Repair without Format Specifications</h4>
+                    <p class="authors"><strong>Zijian Luo</strong>, Lukas Kirschner, Ezekiel Soremekun, Rahul Gopinath.
+                    </p>
+                    <p class="conference">IEEE International Symposium on Software Reliability Engineering (ISSRE) 2025.
+                    </p>
+                </div>
+                <div class="glass-card pub-card">
+                    <h4>Assessing Reliability of Statistical Maximum Coverage Estimators in Fuzzing</h4>
+                    <p class="authors">Danushka Liyanage*, Nelum Attanayake*, <strong>Zijian Luo*</strong>, Rahul
+                        Gopinath.</p>
+                    <p class="conference">IEEE International Conference on Software Maintenance and Evolution (ICSME)
+                        2025.</p>
+                </div>
+                <div class="glass-card pub-card">
+                    <h4>Maximal Format-Free Record Repair</h4>
+                    <p class="authors"><strong>Zijian Luo</strong>, Hong Jin Kang, Alan Fekete, Rahul Gopinath.</p>
+                    <p class="conference">Under Blinded Review.</p>
+                    <p class="abstract highlight-abstract">A black-box repair framework that infers intrinsic program
+                        input structure using regular-language and automata learning, enabling correction without format
+                        specifications.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects & Skills Section -->
+        <section id="projects" class="reveal section-padding">
+            <div class="two-col">
+                <div class="projects-col">
+                    <h2 class="section-title">Projects</h2>
+                    <div class="glass-card project-card">
+                        <div class="project-header">
+                            <h4>The Deeplang Programming Language (82 Stars)</h4>
+                        </div>
+                        <p class="project-desc">
+                            A memory-safe, multi-paradigm programming language for embedded systems. I was responsible
+                            for implementing the backend virtual machine, including interpreting and executing
+                            WebAssembly (WASM) code generated by the frontend.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="skills-col">
+                    <h2 class="section-title">Technical Skills</h2>
+                    <div class="glass-card skills-card">
+                        <div class="skill-category">
+                            <h5>Programming Languages</h5>
+                            <div class="tags">
+                                <span class="tag">C/C++</span>
+                                <span class="tag">Python</span>
+                                <span class="tag">Rust</span>
+                                <span class="tag">WebAssembly</span>
+                            </div>
+                        </div>
+                        <div class="skill-category mt-15">
+                            <h5>Analysis & Testing</h5>
+                            <div class="tags">
+                                <span class="tag">Fuzzing (AFL)</span>
+                                <span class="tag">Program Repair</span>
+                                <span class="tag">Grammar Inference</span>
+                                <span class="tag">CodeQL</span>
+                            </div>
+                        </div>
+                        <div class="skill-category mt-15">
+                            <h5>Systems</h5>
+                            <div class="tags">
+                                <span class="tag">Linux</span>
+                                <span class="tag">Virtual Machines</span>
+                                <span class="tag">Ghidra</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Zijian (Jack) Luo. Designed & Built with ❤️ and Code.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
