@@ -131,8 +131,8 @@ a:hover {
     grid-template-columns: minmax(0, 1.4fr) minmax(220px, 0.6fr);
     align-items: center;
     gap: 2.75rem;
-    min-height: calc(76vh - 58px);
-    padding: 3.4rem 0 2.7rem;
+    min-height: auto;
+    padding: 1.15rem 0 0.85rem;
 }
 
 .hero-copy {
@@ -140,32 +140,33 @@ a:hover {
 }
 
 .greeting {
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.35rem;
     color: var(--text-accent-alt);
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     font-weight: 700;
 }
 
 .name {
     max-width: 780px;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.4rem;
     font-size: 3.7rem;
 }
 
 .title {
     max-width: 720px;
-    margin-bottom: 0.9rem;
+    margin-bottom: 0.55rem;
     color: #334155;
     font-size: 1.22rem;
     font-weight: 500;
-    line-height: 1.4;
+    line-height: 1.32;
 }
 
 .bio {
     max-width: 720px;
-    margin-bottom: 1.35rem;
+    margin-bottom: 0.85rem;
     color: var(--text-secondary);
     font-size: 0.98rem;
+    line-height: 1.5;
 }
 
 .hero-actions {
@@ -173,7 +174,7 @@ a:hover {
     flex-wrap: wrap;
     align-items: center;
     gap: 0.65rem;
-    margin-bottom: 1.15rem;
+    margin-bottom: 0.85rem;
 }
 
 .primary-link,
@@ -248,7 +249,7 @@ a:hover {
 }
 
 .section-padding {
-    padding: 2.6rem 0;
+    padding: 1.65rem 0;
     scroll-margin-top: 76px;
 }
 
@@ -466,9 +467,9 @@ a:hover {
 }
 
 footer {
-    margin-top: 1.25rem;
+    margin-top: 0.8rem;
     border-top: 1px solid var(--border-color);
-    padding: 1.35rem;
+    padding: 0.9rem;
     color: var(--text-muted);
     text-align: center;
     font-size: 0.85rem;
@@ -490,7 +491,7 @@ footer {
         grid-template-columns: 1fr;
         gap: 1.65rem;
         min-height: auto;
-        padding: 3rem 0 2rem;
+        padding: 1.8rem 0 1.4rem;
     }
 
     .hero-portrait {
@@ -528,7 +529,7 @@ footer {
     }
 
     .hero {
-        padding-top: 2.4rem;
+        padding-top: 0.9rem;
     }
 
     .name {
@@ -540,7 +541,7 @@ footer {
     }
 
     .section-padding {
-        padding: 2.1rem 0;
+        padding: 1.45rem 0;
     }
 
     .section-title {
