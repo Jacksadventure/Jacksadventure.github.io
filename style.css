@@ -431,6 +431,30 @@ a:hover {
     font-weight: 700;
 }
 
+.ranking-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.55rem;
+}
+
+.rank-badge {
+    border: 1px solid #99f6e4;
+    border-radius: 999px;
+    background: #f0fdfa;
+    color: #0f766e;
+    padding: 0.2rem 0.52rem;
+    font-size: 0.76rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.rank-muted {
+    border-color: var(--border-color);
+    background: var(--surface-soft);
+    color: var(--text-muted);
+}
+
 .highlight-abstract {
     margin-top: 0.7rem;
     border-left: 3px solid #99f6e4;
