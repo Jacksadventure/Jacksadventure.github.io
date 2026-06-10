@@ -249,24 +249,37 @@ a:hover {
 }
 
 .hero-portrait {
+    --portrait-shape: polygon(50% 0, 91% 11%, 100% 50%, 91% 89%, 50% 100%, 9% 89%, 0 50%, 9% 11%);
     justify-self: end;
     width: min(100%, 230px);
     aspect-ratio: 0.68;
-    overflow: hidden;
-    border: 2px solid var(--border-color);
-    border-radius: 50% / 38%;
-    background: var(--surface-soft);
+    position: relative;
+    padding: 3px;
+    background: var(--border-color);
+    clip-path: var(--portrait-shape);
     box-shadow: var(--shadow-soft);
-    transform: rotate(-7deg);
+    transform: rotate(-13deg);
+}
+
+.hero-portrait::before {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    z-index: 0;
+    background: var(--surface-soft);
+    clip-path: var(--portrait-shape);
 }
 
 .hero-portrait img {
     display: block;
+    position: relative;
+    z-index: 1;
     width: 118%;
     height: 118%;
     object-fit: cover;
     object-position: center 15%;
-    transform: rotate(7deg) translate(-5%, -11%) scale(1.2);
+    clip-path: var(--portrait-shape);
+    transform: rotate(13deg) translate(-5%, -11%) scale(1.2);
     transform-origin: center;
 }
 
