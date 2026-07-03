@@ -596,6 +596,10 @@ footer {
         padding-top: 0.9rem;
     }
 
+    .hero-portrait {
+        display: none;
+    }
+
     .name {
         font-size: 2.45rem;
     }
