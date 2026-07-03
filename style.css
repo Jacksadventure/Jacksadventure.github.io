@@ -435,12 +435,19 @@ a:hover {
 }
 
 .pub-card {
+    display: block;
     padding: 1.05rem;
+    color: inherit;
 }
 
 .pub-card h4 {
     margin-bottom: 0.55rem;
     font-size: 1rem;
+    transition: color 180ms ease;
+}
+
+.pub-card:hover h4 {
+    color: var(--text-accent);
 }
 
 .authors {
