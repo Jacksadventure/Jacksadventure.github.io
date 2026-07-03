@@ -290,6 +290,17 @@ a:hover {
     background: var(--border-color);
 }
 
+.education-experience-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+}
+
+.education-experience-layout > .section-padding {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
 .glass-card {
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -599,6 +610,15 @@ footer {
 
     .section-title {
         font-size: 1.22rem;
+    }
+
+    .education-experience-layout {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .education-experience-layout > .section-padding {
+        width: 100%;
     }
 
     .news-item {
