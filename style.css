@@ -723,10 +723,47 @@ footer {
 
     .hero {
         padding-top: 0.9rem;
+        row-gap: 0;
+    }
+
+    .hero-copy {
+        display: contents;
+    }
+
+    .greeting {
+        order: 1;
+    }
+
+    .name {
+        order: 2;
+    }
+
+    #pronunciation-audio {
+        order: 3;
+    }
+
+    .title {
+        order: 4;
+    }
+
+    .bio {
+        order: 5;
     }
 
     .hero-portrait {
-        display: none;
+        display: block;
+        order: 6;
+        justify-self: center;
+        width: min(68vw, 210px);
+        margin: 0.1rem auto 0.85rem;
+    }
+
+    .hero-actions {
+        order: 7;
+    }
+
+    .social-links {
+        order: 8;
     }
 
     .name {
