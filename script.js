@@ -31,6 +31,31 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    const pronunciationButton = document.querySelector('.pronunciation-button');
+    const pronunciationAudio = document.querySelector('#pronunciation-audio');
+
+    if (pronunciationButton && pronunciationAudio) {
+        pronunciationButton.addEventListener('click', () => {
+            pronunciationAudio.currentTime = 0;
+            const playPromise = pronunciationAudio.play();
+            pronunciationButton.classList.add('is-playing');
+
+            if (playPromise) {
+                playPromise.catch(() => {
+                    pronunciationButton.classList.remove('is-playing');
+                });
+            }
+        });
+
+        pronunciationAudio.addEventListener('ended', () => {
+            pronunciationButton.classList.remove('is-playing');
+        });
+
+        pronunciationAudio.addEventListener('pause', () => {
+            pronunciationButton.classList.remove('is-playing');
+        });
+    }
+
     document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
