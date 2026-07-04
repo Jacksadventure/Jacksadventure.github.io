@@ -21,6 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
         revealObserver.observe(reveal);
     });
 
+    const portrait = document.querySelector('.hero-portrait');
+    const portraitCard = portrait?.querySelector('.portrait-card');
+
+    if (portrait && portraitCard) {
+        portraitCard.addEventListener('click', () => {
+            const isFlipped = portrait.classList.toggle('is-flipped');
+            portraitCard.setAttribute('aria-pressed', String(isFlipped));
+        });
+    }
+
     document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();

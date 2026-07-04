@@ -69,8 +69,18 @@
                         rel="noopener noreferrer" class="social-icon">Scholar</a>
                 </div>
             </div>
-            <figure class="hero-portrait">
-                <img src="assets/img/IMG_7512.jpg" alt="Portrait of Zijian Luo">
+            <figure class="hero-portrait" aria-label="Portrait card with fun facts">
+                <button class="portrait-card" type="button" aria-pressed="false" aria-label="Flip portrait card to reveal fun facts">
+                    <span class="portrait-face portrait-front" aria-hidden="true">
+                        <img src="assets/img/IMG_7512.jpg" alt="Portrait of Zijian Luo">
+                    </span>
+                    <span class="portrait-face portrait-back" aria-hidden="true">
+                        <span class="fun-facts-title">Fun Facts</span>
+                        <span class="fun-fact">My dream is to join OpenAI.</span>
+                        <span class="fun-fact">I like photography.</span>
+                        <span class="fun-fact">I like swimming.</span>
+                    </span>
+                </button>
             </figure>
         </section>
 

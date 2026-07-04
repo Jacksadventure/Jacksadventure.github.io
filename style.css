@@ -258,14 +258,54 @@ a:hover {
     justify-self: end;
     width: min(100%, 230px);
     aspect-ratio: 4 / 5;
+    perspective: 900px;
+}
+
+.portrait-card {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 8px;
+    padding: 0;
+    appearance: none;
+    background: transparent;
+    box-shadow: var(--shadow-soft);
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+    transform-style: preserve-3d;
+    transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 180ms ease;
+}
+
+.portrait-card:hover,
+.portrait-card:focus-visible {
+    box-shadow: 0 18px 38px rgba(15, 23, 42, 0.13);
+}
+
+.portrait-card:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.28);
+    outline-offset: 4px;
+}
+
+.hero-portrait.is-flipped .portrait-card {
+    transform: rotateY(180deg);
+}
+
+.portrait-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
     overflow: hidden;
     border: 1px solid var(--border-color);
     border-radius: 8px;
     background: var(--surface-soft);
-    box-shadow: var(--shadow-soft);
+    backface-visibility: hidden;
 }
 
-.hero-portrait img {
+.portrait-front img {
     display: block;
     width: 100%;
     height: 100%;
@@ -273,6 +313,31 @@ a:hover {
     object-position: center 14%;
     transform: scale(1.35);
     transform-origin: center 18%;
+}
+
+.portrait-back {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.72rem;
+    padding: 1.15rem;
+    background: linear-gradient(145deg, #f8fbff 0%, #eaf4f2 100%);
+    color: var(--text-primary);
+    transform: rotateY(180deg);
+}
+
+.fun-facts-title {
+    color: var(--text-accent-alt);
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.fun-fact {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.35;
 }
 
 .section-padding {
