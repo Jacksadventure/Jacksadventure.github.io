@@ -65,6 +65,11 @@ a:hover {
     font-weight: 600;
 }
 
+.supervisor-link {
+    color: var(--text-accent);
+    font-weight: 700;
+}
+
 .container {
     max-width: 1120px;
     margin: 0 auto;
