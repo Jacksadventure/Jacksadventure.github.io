@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Deep Dive into Agent Tool Calls | Zijian Luo aka Jack</title>
+    <meta name="description"
+        content="A practical explanation of how agent tool calls move from model intent to validated local execution, result messages, and the next reasoning step.">
+    <meta name="author" content="Zijian Luo">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#f7f9fc">
+    <link rel="canonical" href="https://zijianluo2000.vercel.app/blog/tool-calls.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Zijian Luo aka Jack">
+    <meta property="og:title" content="A Deep Dive into Agent Tool Calls | Zijian Luo aka Jack">
+    <meta property="og:description"
+        content="A practical explanation of how agent tool calls move from model intent to validated local execution, result messages, and the next reasoning step.">
+    <meta property="og:url" content="https://zijianluo2000.vercel.app/blog/tool-calls.html">
+    <meta property="og:image" content="https://zijianluo2000.vercel.app/assets/img/IMG_7512.jpg">
+    <meta property="og:image:alt" content="Portrait of Zijian Luo aka Jack">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="A Deep Dive into Agent Tool Calls | Zijian Luo aka Jack">
+    <meta name="twitter:description"
+        content="A practical explanation of how agent tool calls move from model intent to validated local execution, result messages, and the next reasoning step.">
+    <meta name="twitter:image" content="https://zijianluo2000.vercel.app/assets/img/IMG_7512.jpg">
+    <meta name="twitter:image:alt" content="Portrait of Zijian Luo aka Jack">
+    <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "A Deep Dive into Agent Tool Calls",
+            "url": "https://zijianluo2000.vercel.app/blog/tool-calls.html",
+            "datePublished": "2026-07-06",
+            "dateModified": "2026-07-06",
+            "description": "A practical explanation of how agent tool calls move from model intent to validated local execution, result messages, and the next reasoning step.",
+            "author": {
+                "@type": "Person",
+                "name": "Zijian Luo",
+                "alternateName": "Jack",
+                "url": "https://zijianluo2000.vercel.app/"
+            },
+            "keywords": "Agents, Tool Calls, Agent Runtime, Research Notes"
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="site-nav">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">Zijian Luo</a>
+            <div class="nav-links">
+                <a href="../index.html#about">About</a>
+                <a href="../index.html#experience">Experience</a>
+                <a href="../index.html#publications">Publications</a>
+                <a href="../index.html#projects">Projects</a>
+                <a href="../blog.html" class="active">Blog</a>
+                <a href="../index.html#news">News</a>
+                <a href="../assets/pdf/cv.pdf" target="_blank" rel="noopener noreferrer" class="nav-btn">Resume</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container blog-main post-main">
+        <article class="glass-card post-article reveal">
+            <header class="post-header">
+                <a href="../blog.html" class="back-link">Back to blog</a>
+                <div class="blog-meta">
+                    <span>Jul 6, 2026</span>
+                    <span>Agent Runtime</span>
+                </div>
+                <h1 class="post-title">A Deep Dive into Agent Tool Calls</h1>
+                <p class="post-summary">
+                    Tool calls are the bridge between a model's plan and the outside world. The interesting part is not
+                    the call itself, but the runtime contract that keeps the bridge inspectable, recoverable, and safe.
+                </p>
+                <div class="blog-tags" aria-label="Post tags">
+                    <span class="tag">Agents</span>
+                    <span class="tag">Tool Calls</span>
+                    <span class="tag">Agent Runtime</span>
+                    <span class="tag">Research Notes</span>
+                </div>
+            </header>
+
+            <div class="post-content">
+                <p>
+                    This document summarizes the tool-call pipeline used by the Pi agent runtime. It is based on the
+                    implementation and documentation in the local Pi project, with details flattened into a public-facing
+                    technical note. The key invariant is simple: the model never executes tools directly. It emits
+                    structured intent; the runtime validates, executes, records, and feeds results back into the next
+                    model turn.
+                </p>
+
+                <figure class="post-figure">
+                    <div class="pipeline-visual" aria-label="Tool call pipeline diagram">
+                        <span class="pipeline-step">Model intent</span>
+                        <span class="pipeline-arrow">-&gt;</span>
+                        <span class="pipeline-step">Runtime validation</span>
+                        <span class="pipeline-arrow">-&gt;</span>
+                        <span class="pipeline-step">Tool result</span>
+                    </div>
+                    <figcaption>A compact view of the tool-call boundary: intent, validation, execution, and feedback.</figcaption>
+                </figure>
+
+                <h2>Scope and invariants</h2>
+                <ul>
+                    <li>The model receives tool declarations and emits structured tool-call blocks.</li>
+                    <li>The local runtime owns lookup, argument preparation, schema validation, policy hooks, execution, and result emission.</li>
+                    <li>The assistant message is finalized before tool preflight begins.</li>
+                    <li>Execution is driven by assistant message content, not only by a provider stop reason.</li>
+                    <li>Tool results are persisted as transcript messages and become input to the next model request.</li>
+                    <li>Live execution order and persisted transcript order can differ in parallel mode.</li>
+                </ul>
+
+                <h2>Runtime data model</h2>
+                <p>
+                    Pi separates the provider-facing tool shape from the local runtime tool shape. The provider-facing
+                    layer describes what the model is allowed to request. The runtime layer adds local execution behavior,
+                    progress reporting, execution-mode hints, and hooks.
+                </p>
+                <div class="post-table-wrap">
+                    <table class="post-table">
+                        <thead>
+                            <tr>
+                                <th>Concept</th>
+                                <th>Role in the pipeline</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tool declaration</td>
+                                <td>Name, description, and schema exposed to the model.</td>
+                            </tr>
+                            <tr>
+                                <td>Assistant tool call</td>
+                                <td>Structured assistant content containing call id, tool name, and parsed arguments.</td>
+                            </tr>
+                            <tr>
+                                <td>Runtime tool</td>
+                                <td>Local executable definition with label, schema, optional argument preparation, execution mode, and execute handler.</td>
+                            </tr>
+                            <tr>
+                                <td>Tool result</td>
+                                <td>Model-visible content plus structured runtime details and an optional termination hint.</td>
+                            </tr>
+                            <tr>
+                                <td>Tool-result message</td>
+                                <td>Persisted transcript message paired back to the assistant tool-call id.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Provider normalization</h2>
+                <p>
+                    Provider APIs serialize tool calls differently. Pi normalizes those formats into one internal stream
+                    shape so the agent loop does not need provider-specific execution logic. Streaming adapters can
+                    accumulate partial JSON arguments while the model is still producing them, expose partial updates to
+                    the UI, and keep only parsed arguments in the finalized assistant message.
+                </p>
+                <div class="post-table-wrap">
+                    <table class="post-table">
+                        <thead>
+                            <tr>
+                                <th>Provider family</th>
+                                <th>Typical wire shape</th>
+                                <th>Internal representation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Chat-completion style APIs</td>
+                                <td>Function-call deltas</td>
+                                <td>Streaming tool-call start, delta, and end events.</td>
+                            </tr>
+                            <tr>
+                                <td>Response-item APIs</td>
+                                <td>Function-call and function-output items</td>
+                                <td>Assistant tool-call blocks and tool-result messages.</td>
+                            </tr>
+                            <tr>
+                                <td>Block/part-based APIs</td>
+                                <td>Tool-use and tool-result content blocks or parts</td>
+                                <td>The same assistant/tool-result transcript pair used by the runtime.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Request construction</h2>
+                <p>
+                    Before a model can request tools, the active tool set is serialized into the provider request. The
+                    schema remains the source of truth for arguments. Provider-level options can influence whether the
+                    model may emit tool calls, but they do not decide how local execution is scheduled. Local scheduling
+                    is controlled by the agent configuration and per-tool execution mode.
+                </p>
+
+                <h2>Execution stages</h2>
+                <ol>
+                    <li>Scan the finalized assistant message for tool-call blocks.</li>
+                    <li>Choose batch mode: sequential if globally configured, or if any requested tool requires sequential execution; otherwise parallel.</li>
+                    <li>Emit a tool-execution start event for each requested call as it enters preflight.</li>
+                    <li>Find the runtime tool by name. Unknown names become immediate error results.</li>
+                    <li>Optionally prepare raw arguments for compatibility before validation.</li>
+                    <li>Validate arguments against the tool schema.</li>
+                    <li>Run the pre-execution hook. A blocking result becomes an immediate error result.</li>
+                    <li>Execute the tool with the validated arguments, abort signal, and optional progress callback.</li>
+                    <li>Convert thrown errors into error tool results.</li>
+                    <li>Run the post-execution hook, which may replace content, details, error state, or termination hint.</li>
+                    <li>Emit tool-execution end, create the persisted tool-result message, and emit message lifecycle events.</li>
+                </ol>
+
+                <h2>Sequential execution</h2>
+                <p>
+                    Sequential mode processes the assistant's tool calls in source order. Each call is prepared,
+                    executed, finalized, emitted, and persisted before the next call begins. This mode is selected when
+                    the agent is configured for sequential execution, or when any tool in the batch declares that it must
+                    run sequentially. The latter rule is batch-wide: one sequential-only tool makes the whole batch
+                    sequential.
+                </p>
+
+                <figure class="post-figure">
+                    <div class="timeline-visual" aria-label="Sequential tool-call flow">
+                        <div class="timeline-step">
+                            <span>1</span>
+                            <strong>Call A requested</strong>
+                            <em>Validate, execute, record result</em>
+                        </div>
+                        <div class="timeline-step">
+                            <span>2</span>
+                            <strong>Call B requested</strong>
+                            <em>Starts after A is finalized</em>
+                        </div>
+                        <div class="timeline-step">
+                            <span>3</span>
+                            <strong>Next model turn</strong>
+                            <em>Receives A then B</em>
+                        </div>
+                    </div>
+                    <figcaption>Sequential mode keeps execution order, transcript order, and next-turn input order aligned.</figcaption>
+                </figure>
+
+                <pre class="post-code"><code>tool_execution_start A
+tool_execution_update A, optional
+tool_execution_end A
+message_start toolResult A
+message_end toolResult A
+tool_execution_start B
+tool_execution_update B, optional
+tool_execution_end B
+message_start toolResult B
+message_end toolResult B
+turn_end toolResults [A, B]</code></pre>
+
+                <h2>Parallel execution</h2>
+                <p>
+                    Parallel mode is the default. It still performs preflight sequentially in assistant source order:
+                    lookup, argument preparation, schema validation, and the pre-execution hook run deterministically.
+                    Calls that fail preflight are finalized immediately as error results. Calls that pass preflight are
+                    started concurrently.
+                </p>
+
+                <figure class="post-figure">
+                    <div class="parallel-visual" aria-label="Parallel tool-call flow">
+                        <div class="parallel-lane">
+                            <span>Source order</span>
+                            <strong>A then B</strong>
+                            <em>The model requested this order.</em>
+                        </div>
+                        <div class="parallel-lane">
+                            <span>Execution</span>
+                            <strong>A and B run together</strong>
+                            <em>B may finish before A.</em>
+                        </div>
+                        <div class="parallel-lane">
+                            <span>Transcript</span>
+                            <strong>A then B</strong>
+                            <em>Results are saved in stable source order.</em>
+                        </div>
+                    </div>
+                    <figcaption>Parallel mode can report completion as it happens while still preserving deterministic replay.</figcaption>
+                </figure>
+
+                <p>
+                    Completion events follow actual completion order. Persisted tool-result messages follow assistant
+                    source order. That split lets UI update quickly while keeping transcript replay and the next model
+                    request deterministic.
+                </p>
+                <pre class="post-code"><code>assistant source order: A, B
+completion order:       B, A
+
+tool_execution_start A
+tool_execution_start B
+tool_execution_end B
+tool_execution_end A
+message_start toolResult A
+message_end toolResult A
+message_start toolResult B
+message_end toolResult B
+turn_end toolResults [A, B]</code></pre>
+
+                <h2>Preflight failures in parallel mode</h2>
+                <p>
+                    A failed preflight does not necessarily cancel the entire batch. An unknown tool, invalid arguments,
+                    blocked action, or observed abort can become an immediate error result. Other prepared calls can
+                    still execute if the batch has not been aborted. The final transcript remains ordered by the
+                    assistant's original call order.
+                </p>
+                <pre class="post-code"><code>assistant source order: A invalid, B valid
+
+tool_execution_start A
+tool_execution_end A error
+tool_execution_start B
+tool_execution_end B success
+message_start toolResult A
+message_end toolResult A
+message_start toolResult B
+message_end toolResult B</code></pre>
+
+                <h2>Progress updates</h2>
+                <p>
+                    Tools can emit partial results while running. These partial results produce tool-execution update
+                    events for the interface, but they are not persisted as transcript messages. The runtime stops
+                    accepting late updates after the tool promise settles, then waits for already queued update emissions
+                    before finalizing the call.
+                </p>
+
+                <h2>Hooks and mutation boundaries</h2>
+                <p>
+                    The pre-execution hook receives validated arguments and may block execution. In the coding-agent
+                    integration, extension-level tool-call handlers can mutate the input object before execution, and
+                    later handlers observe earlier mutations. Those mutations are not revalidated automatically, so hook
+                    authors must preserve the schema contract themselves.
+                </p>
+                <p>
+                    The post-execution hook runs after the tool finishes but before final execution-end and tool-result
+                    message events. It can replace the visible content, structured details, error flag, or termination
+                    hint. Missing fields keep the original values; no deep merge is performed.
+                </p>
+
+                <h2>Termination semantics</h2>
+                <p>
+                    A tool result may include a termination hint. The agent stops after the current tool batch only when
+                    every finalized tool result in that batch sets the hint. If any finalized result does not terminate,
+                    the agent sends all tool results to the next model request and continues normally.
+                </p>
+                <pre class="post-code"><code>terminate = finalizedCalls.length &gt; 0
+  and every finalized result has terminate === true</code></pre>
+
+                <h2>Steering, follow-up, and next-turn refresh</h2>
+                <p>
+                    Steering messages are not injected in the middle of a tool batch. The loop waits for the assistant
+                    response and its tool executions to complete, emits the turn-end event, refreshes next-turn state,
+                    checks stop conditions, and then polls steering messages. Follow-up messages are polled only after
+                    the agent would otherwise stop because there are no more tool calls or steering messages.
+                </p>
+                <p>
+                    In the coding-agent integration, active tools, system prompt, model, and thinking level are refreshed
+                    at the next safe turn boundary. Changing the active tool set during a run affects the next provider
+                    request, not the in-flight request or already executing tools.
+                </p>
+
+                <h2>Persistence and replay</h2>
+                <p>
+                    Tool calls and tool results are stored as transcript messages. The assistant message contains the
+                    tool-call blocks; later tool-result messages point back to the original call id. Replay and export use
+                    that id pairing. Provider adapters may normalize ids when replaying history across providers and must
+                    keep matching tool-result ids in sync. If a provider requires every historical tool call to have a
+                    matching result, missing results can be synthesized as explicit error results before serialization.
+                </p>
+
+                <h2>UI event contract</h2>
+                <p>
+                    UI layers should treat assistant streaming events and local tool execution events separately.
+                    Assistant message updates show the model constructing text and tool-call arguments. Tool execution
+                    events show local execution lifecycle.
+                </p>
+                <div class="post-table-wrap">
+                    <table class="post-table">
+                        <thead>
+                            <tr>
+                                <th>Event family</th>
+                                <th>Use it for</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>message_start / message_update / message_end</td>
+                                <td>Rendering user, assistant, and final tool-result transcript messages.</td>
+                            </tr>
+                            <tr>
+                                <td>tool_execution_start</td>
+                                <td>Creating a live tool card and showing that preflight has begun.</td>
+                            </tr>
+                            <tr>
+                                <td>tool_execution_update</td>
+                                <td>Streaming progress output from a running tool.</td>
+                            </tr>
+                            <tr>
+                                <td>tool_execution_end</td>
+                                <td>Marking local execution complete. In parallel mode this follows completion order.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Failure modes</h2>
+                <p>
+                    Failure is represented as data whenever possible. This keeps the model, transcript, and UI in sync.
+                </p>
+                <div class="post-table-wrap">
+                    <table class="post-table">
+                        <thead>
+                            <tr>
+                                <th>Failure</th>
+                                <th>Runtime behavior</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tool name is unknown</td>
+                                <td>Immediate error tool result.</td>
+                            </tr>
+                            <tr>
+                                <td>Arguments fail validation</td>
+                                <td>Immediate error tool result.</td>
+                            </tr>
+                            <tr>
+                                <td>Pre-execution hook blocks</td>
+                                <td>Immediate error tool result with the block reason when provided.</td>
+                            </tr>
+                            <tr>
+                                <td>Tool throws during execution</td>
+                                <td>Thrown error is converted to an error tool result.</td>
+                            </tr>
+                            <tr>
+                                <td>Post-execution hook throws</td>
+                                <td>Final result becomes an error tool result.</td>
+                            </tr>
+                            <tr>
+                                <td>Abort signal is observed</td>
+                                <td>Preparation or execution returns an aborted/error result depending on where it is observed.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <nav class="post-nav" aria-label="Blog post navigation">
+                <span class="post-nav-link disabled" aria-disabled="true">
+                    <span>Previous</span>
+                    <strong>No previous post</strong>
+                </span>
+                <span class="post-nav-link disabled" aria-disabled="true">
+                    <span>Next</span>
+                    <strong>No next post</strong>
+                </span>
+            </nav>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Zijian Luo aka Jack. Built with code.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

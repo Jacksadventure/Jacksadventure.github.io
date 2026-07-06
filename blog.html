@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Zijian Luo aka Jack</title>
+    <meta name="description"
+        content="Blog by Zijian Luo aka Jack, with notes on code intelligence, agents, code verification, software engineering research, and reliable development workflows.">
+    <meta name="author" content="Zijian Luo">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#f7f9fc">
+    <link rel="canonical" href="https://zijianluo2000.vercel.app/blog.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Zijian Luo aka Jack">
+    <meta property="og:title" content="Blog | Zijian Luo aka Jack">
+    <meta property="og:description"
+        content="Notes on code intelligence, agents, code verification, software engineering research, and reliable development workflows.">
+    <meta property="og:url" content="https://zijianluo2000.vercel.app/blog.html">
+    <meta property="og:image" content="https://zijianluo2000.vercel.app/assets/img/IMG_7512.jpg">
+    <meta property="og:image:alt" content="Portrait of Zijian Luo aka Jack">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blog | Zijian Luo aka Jack">
+    <meta name="twitter:description"
+        content="Notes on code intelligence, agents, code verification, software engineering research, and reliable development workflows.">
+    <meta name="twitter:image" content="https://zijianluo2000.vercel.app/assets/img/IMG_7512.jpg">
+    <meta name="twitter:image:alt" content="Portrait of Zijian Luo aka Jack">
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link rel="me" href="https://orcid.org/0009-0007-6993-2112">
+    <link rel="me" href="https://github.com/Jacksadventure">
+    <link rel="me" href="https://www.linkedin.com/in/zijian-luo-5647b128b">
+    <link rel="me" href="https://scholar.google.com/citations?user=gSCCDf4AAAAJ&hl=en">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "@id": "https://zijianluo2000.vercel.app/blog.html#blog",
+            "name": "Blog | Zijian Luo aka Jack",
+            "url": "https://zijianluo2000.vercel.app/blog.html",
+            "description": "Notes by Zijian Luo aka Jack on code intelligence, agents, code verification, software engineering research, and reliable development workflows.",
+            "author": {
+                "@type": "Person",
+                "name": "Zijian Luo",
+                "alternateName": "Jack",
+                "url": "https://zijianluo2000.vercel.app/"
+            },
+            "blogPost": [
+                {
+                    "@type": "BlogPosting",
+                    "headline": "A Deep Dive into Agent Tool Calls",
+                    "url": "https://zijianluo2000.vercel.app/blog/tool-calls.html",
+                    "datePublished": "2026-07-06",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Zijian Luo"
+                    },
+                    "keywords": "Agents, Tool Calls, Agent Runtime, Research Notes"
+                }
+            ]
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="site-nav">
+        <div class="nav-content">
+            <a href="index.html" class="logo">Zijian Luo</a>
+            <div class="nav-links">
+                <a href="index.html#about">About</a>
+                <a href="index.html#experience">Experience</a>
+                <a href="index.html#publications">Publications</a>
+                <a href="index.html#projects">Projects</a>
+                <a href="#posts" class="active">Blog</a>
+                <a href="index.html#news">News</a>
+                <a href="assets/pdf/cv.pdf" target="_blank" rel="noopener noreferrer" class="nav-btn">Resume</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container blog-main">
+        <section class="blog-hero reveal">
+            <a href="index.html" class="back-link">Back to homepage</a>
+            <p class="greeting">Blog</p>
+            <h1 class="blog-title">Notes and Essays</h1>
+            <p class="blog-intro">
+                Research notes, engineering write-ups, and reading reflections around code intelligence, agents,
+                code verification, and building reliable software systems.
+            </p>
+        </section>
+
+        <section id="posts" class="reveal section-padding">
+            <h2 class="section-title">Latest Posts</h2>
+            <div class="glass-card blog-controls" role="search" aria-label="Search blog posts">
+                <label class="blog-search-label" for="blog-search">Search posts</label>
+                <input id="blog-search" class="blog-search" type="search" placeholder="Search by title, summary, or tag" autocomplete="off">
+                <div class="blog-filter-tags" aria-label="Filter posts by tag">
+                    <button class="tag-filter active" type="button" data-blog-tag="all">All</button>
+                    <button class="tag-filter" type="button" data-blog-tag="agents">Agents</button>
+                    <button class="tag-filter" type="button" data-blog-tag="tool-calls">Tool Calls</button>
+                    <button class="tag-filter" type="button" data-blog-tag="agent-runtime">Agent Runtime</button>
+                    <button class="tag-filter" type="button" data-blog-tag="research-notes">Research Notes</button>
+                </div>
+                <p class="blog-result-count" data-blog-count aria-live="polite">1 post</p>
+            </div>
+            <div class="blog-list">
+                <a href="blog/tool-calls.html" class="glass-card blog-card" data-blog-post
+                    data-title="A Deep Dive into Agent Tool Calls"
+                    data-summary="A practical look at how agent tool calls move from model intent to validated local execution, result messages, and the next reasoning step."
+                    data-tags="agents,tool-calls,agent-runtime,research-notes">
+                    <div class="blog-meta">
+                        <span>Jul 6, 2026</span>
+                        <span>Agent Runtime</span>
+                    </div>
+                    <h3>A Deep Dive into Agent Tool Calls</h3>
+                    <p>
+                        A practical look at how agent tool calls move from model intent to validated local execution,
+                        result messages, and the next reasoning step.
+                    </p>
+                    <div class="blog-tags" aria-label="Blog topics">
+                        <span class="tag">Agents</span>
+                        <span class="tag">Tool Calls</span>
+                        <span class="tag">Agent Runtime</span>
+                        <span class="tag">Research Notes</span>
+                    </div>
+                    <span class="blog-read-more">Read post</span>
+                </a>
+
+                <article class="glass-card blog-empty blog-no-results" data-blog-empty hidden>
+                    <h3>No posts found.</h3>
+                    <p>Try a different search term or choose another tag.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Zijian Luo aka Jack. Built with code.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

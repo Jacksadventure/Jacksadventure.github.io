@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jacksadventure.github.io/sitemap.xml
+Sitemap: https://zijianluo2000.vercel.app/sitemap.xml

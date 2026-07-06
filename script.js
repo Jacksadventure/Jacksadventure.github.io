@@ -18,6 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const revealObserver = new IntersectionObserver(revealOnScroll, revealOptions);
 
     reveals.forEach(reveal => {
+        const rect = reveal.getBoundingClientRect();
+        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+
+        if (isInViewport) {
+            reveal.classList.add('active');
+            return;
+        }
+
         revealObserver.observe(reveal);
     });
 
@@ -54,6 +62,56 @@ document.addEventListener("DOMContentLoaded", () => {
         pronunciationAudio.addEventListener('pause', () => {
             pronunciationButton.classList.remove('is-playing');
         });
+    }
+
+    const blogSearch = document.querySelector('#blog-search');
+    const blogPosts = Array.from(document.querySelectorAll('[data-blog-post]'));
+    const blogTagButtons = Array.from(document.querySelectorAll('[data-blog-tag]'));
+    const blogEmptyState = document.querySelector('[data-blog-empty]');
+    const blogCount = document.querySelector('[data-blog-count]');
+
+    if (blogSearch && blogPosts.length > 0) {
+        let activeTag = 'all';
+
+        const updateBlogFilters = () => {
+            const query = blogSearch.value.trim().toLowerCase();
+            let visibleCount = 0;
+
+            blogPosts.forEach(post => {
+                const tags = post.dataset.tags.split(',').map(tag => tag.trim());
+                const searchableText = [post.dataset.title, post.dataset.summary, post.dataset.tags]
+                    .join(' ')
+                    .toLowerCase();
+                const matchesSearch = query.length === 0 || searchableText.includes(query);
+                const matchesTag = activeTag === 'all' || tags.includes(activeTag);
+                const isVisible = matchesSearch && matchesTag;
+
+                post.hidden = !isVisible;
+                if (isVisible) visibleCount += 1;
+            });
+
+            if (blogEmptyState) {
+                blogEmptyState.hidden = visibleCount !== 0;
+            }
+
+            if (blogCount) {
+                blogCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'post' : 'posts'}`;
+            }
+        };
+
+        blogSearch.addEventListener('input', updateBlogFilters);
+
+        blogTagButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                activeTag = button.dataset.blogTag;
+                blogTagButtons.forEach(tagButton => {
+                    tagButton.classList.toggle('active', tagButton === button);
+                });
+                updateBlogFilters();
+            });
+        });
+
+        updateBlogFilters();
     }
 
     document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
