@@ -654,6 +654,19 @@ a:hover {
     padding: 1.1rem;
 }
 
+.project-card {
+    display: block;
+    color: inherit;
+}
+
+.project-card:hover {
+    color: inherit;
+}
+
+.project-card:hover h4 {
+    color: var(--text-accent);
+}
+
 .project-header h4 {
     font-size: 1rem;
 }
