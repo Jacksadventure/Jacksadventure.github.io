@@ -311,6 +311,29 @@ a:hover {
     border-color: #93c5fd;
 }
 
+.related-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    margin-bottom: 0.4rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.related-links span {
+    font-weight: 600;
+}
+
+.related-links a {
+    border-bottom: 1px solid transparent;
+    color: var(--text-secondary);
+}
+
+.related-links a:hover {
+    border-color: #93c5fd;
+}
+
 .hero-portrait {
     justify-self: end;
     width: min(100%, 230px);
