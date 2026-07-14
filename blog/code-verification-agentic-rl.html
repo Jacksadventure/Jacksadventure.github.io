@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Verification May Be the Bottleneck for Scaling Coding-Agent RL | Zijian Luo aka Jack</title>
+    <meta name="description"
+        content="Why scalable, reliable code verification—not only larger models or longer trajectories—may be the binding constraint for coding-agent reinforcement learning.">
+    <meta name="author" content="Zijian Luo">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#f7f9fc">
+    <link rel="canonical" href="https://zijianluo2000.vercel.app/blog/code-verification-agentic-rl.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Zijian Luo aka Jack">
+    <meta property="og:title" content="Code Verification May Be the Bottleneck for Scaling Coding-Agent RL">
+    <meta property="og:description"
+        content="Why scalable, reliable code verification may be the binding constraint for coding-agent reinforcement learning.">
+    <meta property="og:url" content="https://zijianluo2000.vercel.app/blog/code-verification-agentic-rl.html">
+    <meta property="og:image" content="https://zijianluo2000.vercel.app/assets/img/IMG_7512.jpg">
+    <meta property="og:image:alt" content="Portrait of Zijian Luo aka Jack">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Code Verification May Be the Bottleneck for Scaling Coding-Agent RL">
+    <meta name="twitter:description"
+        content="Why scalable, reliable code verification may be the binding constraint for coding-agent reinforcement learning.">
+    <meta name="twitter:image" content="https://zijianluo2000.vercel.app/assets/img/IMG_7512.jpg">
+    <meta name="twitter:image:alt" content="Portrait of Zijian Luo aka Jack">
+    <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "Code Verification May Be the Bottleneck for Scaling Coding-Agent RL",
+            "url": "https://zijianluo2000.vercel.app/blog/code-verification-agentic-rl.html",
+            "datePublished": "2026-07-14",
+            "dateModified": "2026-07-14",
+            "description": "Why scalable, reliable code verification—not only larger models or longer trajectories—may be the binding constraint for coding-agent reinforcement learning.",
+            "author": {
+                "@type": "Person",
+                "name": "Zijian Luo",
+                "alternateName": "Jack",
+                "url": "https://zijianluo2000.vercel.app/"
+            },
+            "keywords": "Coding Agents, Agentic RL, Code Verification, Reinforcement Learning, Benchmarking"
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="site-nav">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">Zijian Luo</a>
+            <div class="nav-links">
+                <a href="../index.html#about">About</a>
+                <a href="../index.html#experience">Experience</a>
+                <a href="../index.html#publications">Publications</a>
+                <a href="../index.html#projects">Projects</a>
+                <a href="../blog.html" class="active">Blog</a>
+                <a href="../index.html#news">News</a>
+                <a href="../assets/pdf/cv.pdf" target="_blank" rel="noopener noreferrer" class="nav-btn">Resume</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container blog-main post-main">
+        <article class="glass-card post-article reveal">
+            <header class="post-header">
+                <a href="../blog.html" class="back-link">Back to blog</a>
+                <div class="blog-meta">
+                    <span>Jul 14, 2026</span>
+                    <span>Research Notes</span>
+                </div>
+                <h1 class="post-title">Code Verification May Be the Bottleneck for Scaling Coding-Agent RL</h1>
+                <p class="post-summary">
+                    If the verifier is noisy, incomplete, or exploitable, scaling agent trajectories may only scale
+                    reward hacking and false confidence.
+                </p>
+                <div class="blog-tags" aria-label="Post tags">
+                    <span class="tag">Coding Agents</span>
+                    <span class="tag">Agentic RL</span>
+                    <span class="tag">Code Verification</span>
+                    <span class="tag">Benchmarking</span>
+                </div>
+            </header>
+
+            <div class="post-content">
+                <p>
+                    As coding agents are increasingly trained with reinforcement learning, the scaling conversation
+                    usually centers on larger models, longer trajectories, more repository-level tasks, and more capable
+                    agent architectures.
+                </p>
+                <p>
+                    Those directions matter. But I increasingly suspect that a less visible component may become the
+                    binding constraint: <strong>code verification</strong>.
+                </p>
+                <blockquote class="post-callout">
+                    How can we determine—reliably, cheaply, and at scale—whether a code patch produced by an agent is
+                    actually correct?
+                </blockquote>
+                <p>
+                    This is not merely a benchmark implementation detail. In reinforcement learning, the verifier defines
+                    the reward. If the verifier is noisy, incomplete, or exploitable, scaling trajectories may only scale
+                    reward hacking and false confidence.
+                </p>
+
+                <h2>1. Real execution is expensive—and environment utilization is low</h2>
+                <p>
+                    The most direct verification strategy is also the most convincing: clone the repository, install
+                    dependencies, build the environment, apply the patch, and run the relevant tests.
+                </p>
+                <p>
+                    In practice, this pipeline is extremely heavy. Real repositories come with complex dependency graphs,
+                    fragile build systems, large container images, missing credentials, unavailable services,
+                    architecture-specific assumptions, and tests that are flaky even before an agent changes anything.
+                </p>
+                <p>
+                    In one of my own data-mining efforts, I processed more than 5,000 real-world repositories and consumed
+                    roughly 20 TB of disk space. After environment reconstruction and stability filtering, only around
+                    200 tasks remained reliable enough to use as test cases. The effective yield was tiny: most resources
+                    were spent making environments runnable rather than evaluating patches.
+                </p>
+                <div class="post-table-wrap">
+                    <table class="post-table">
+                        <thead>
+                            <tr>
+                                <th>Verification strategy</th>
+                                <th>Advantage</th>
+                                <th>Limitation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Execution-based</td>
+                                <td>Provides the strongest behavioral evidence.</td>
+                                <td>Expensive, slow, and operationally fragile.</td>
+                            </tr>
+                            <tr>
+                                <td>Execution-free</td>
+                                <td>Scales through static analysis, patch similarity, or model judgment.</td>
+                                <td>Can miss hidden bugs, edge cases, runtime behavior, and subtle regressions.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    Recent “dockerless” approaches explore replacing some real execution with model-based judgment or
+                    generated evidence. This is promising for throughput, but the reliability bar for code is unusually
+                    high. A plausible explanation of a patch is not evidence that it compiles, preserves compatibility,
+                    or behaves correctly under an adversarial input.
+                </p>
+                <p>
+                    The important metric is therefore not simply environment success rate. It is <strong>useful
+                    verification per unit of compute, storage, and engineering effort</strong>.
+                </p>
+
+                <h2>2. The contract between code patches and test patches is difficult to guarantee</h2>
+                <p>
+                    Many coding-agent benchmarks are built from historical changes containing both a code patch and a
+                    test patch. The code patch represents the intended solution; the test patch becomes the executable
+                    oracle.
+                </p>
+                <p>
+                    This construction assumes that the two patches share a clear behavioral contract. At minimum, they
+                    must agree on function signatures, data formats, exceptions, state transitions, and compatibility
+                    requirements. In real repositories, however, much of that contract is implicit. It may be encoded in
+                    project conventions, fixtures, mocks, dependency behavior, API migrations, or assumptions spread
+                    across several modules.
+                </p>
+                <p>
+                    A test can reject a valid alternative implementation because it accidentally checks implementation
+                    details. The opposite can also happen: a patch can pass because the test captures only one narrow
+                    symptom of a broader requirement.
+                </p>
+                <p>
+                    Generating the task instruction from the test patch introduces another risk: <strong>solution
+                    leakage</strong>. Tests often reveal the expected interface, exact edge cases, internal call path, or
+                    even the intended algorithm. A benchmark may then measure alignment with the hidden test
+                    implementation rather than genuine understanding of the software-engineering problem.
+                </p>
+                <ol>
+                    <li><strong>Behavioral requirements</strong> legitimately belong in the instruction.</li>
+                    <li><strong>Oracle details</strong> are needed to verify the behavior but not to solve the task.</li>
+                    <li><strong>Implementation details</strong> should remain unconstrained unless the requirement demands them.</li>
+                </ol>
+                <p>Without this separation, the benchmark can reward test-fitting instead of problem solving.</p>
+
+                <h2>3. The instruction–test–patch relationship is often unclear</h2>
+                <p>The ideal task has a clean causal chain:</p>
+                <figure class="post-figure">
+                    <div class="verification-chain" aria-label="Instruction to verification causal chain">
+                        <span>Instruction</span>
+                        <b>→</b>
+                        <span>Required behavior</span>
+                        <b>→</b>
+                        <span>Code patch</span>
+                        <b>→</b>
+                        <span>Observable outcome</span>
+                        <b>→</b>
+                        <span>Test result</span>
+                    </div>
+                    <figcaption>A trustworthy task needs an auditable causal link from requirement to observed outcome.</figcaption>
+                </figure>
+                <p>
+                    Repository-level tasks are rarely this direct. An issue may describe a user-facing failure, while the
+                    test invokes an internal helper and the fix modifies a third module connected through configuration,
+                    dependency injection, inheritance, mocks, or fixtures.
+                </p>
+                <p>
+                    The existence of a passing test does not prove that the test verifies the instruction. It proves only
+                    that one observed execution satisfied one encoded oracle.
+                </p>
+                <ul>
+                    <li>The test may check a local behavior only weakly related to the reported issue.</li>
+                    <li>The patch may fix the test but not the user-visible failure.</li>
+                    <li>The test may encode the historical implementation rather than the underlying requirement.</li>
+                    <li>An untested call path may regress even when the new test passes.</li>
+                    <li>The environment or fixture may fail for reasons unrelated to the patch.</li>
+                </ul>
+                <p>
+                    For repository-level evaluation, task construction needs evidence of <strong>requirement
+                    coverage</strong>, not merely test availability.
+                </p>
+
+                <h2>4. Pass/fail is too coarse</h2>
+                <p>
+                    Most coding-agent benchmarks reduce verification to a binary reward. Binary outcomes are convenient
+                    for reinforcement learning and easy to compare, but they collapse very different failure modes into
+                    the same value.
+                </p>
+                <p>
+                    A failed patch might fail to apply or compile, fix the core logic but miss one edge case, satisfy the
+                    requirement while conflicting with an overly specific test, trigger an unrelated flaky test, or
+                    introduce a performance regression. Likewise, a passing patch may be fragile, overfit, inefficient,
+                    insecure, or much broader than necessary.
+                </p>
+                <p>
+                    Useful evaluation should capture more than final correctness. It should also preserve evidence about
+                    progress, regression risk, performance, maintainability, patch minimality, and root-cause
+                    understanding. Not every dimension should become a single scalar reward, but discarding all of them
+                    leaves valuable training signal on the table.
+                </p>
+
+                <h2>Verification should be a layered system</h2>
+                <p>
+                    No single oracle is likely to be both cheap and trustworthy. A scalable verifier may need to combine
+                    several layers, escalating only when cheaper evidence is insufficient.
+                </p>
+                <div class="post-table-wrap">
+                    <table class="post-table">
+                        <thead>
+                            <tr>
+                                <th>Layer</th>
+                                <th>Evidence</th>
+                                <th>Strength</th>
+                                <th>Main limitation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Structural</td><td>Patch applies, files parse, interfaces remain coherent</td><td>Very cheap and deterministic</td><td>Says little about behavior</td></tr>
+                            <tr><td>Static</td><td>Type checking, linting, data-flow and API checks</td><td>Cheap and broad</td><td>Incomplete for runtime semantics</td></tr>
+                            <tr><td>Targeted execution</td><td>Focused unit and regression tests</td><td>Strong behavioral signal</td><td>Depends on test quality</td></tr>
+                            <tr><td>Differential</td><td>Compare behavior before and after the patch</td><td>Good for detecting regressions</td><td>Needs meaningful input generation</td></tr>
+                            <tr><td>Property-based</td><td>Check invariants across generated inputs</td><td>Finds unanticipated edge cases</td><td>Properties are hard to specify</td></tr>
+                            <tr><td>Full-system</td><td>Integration, end-to-end, performance, and security tests</td><td>Closest to real use</td><td>Most expensive and fragile</td></tr>
+                            <tr><td>Semantic review</td><td>Human or model review of intent, risk, and maintainability</td><td>Captures non-executable qualities</td><td>Subjective and inconsistent</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    The goal is not to eliminate real execution. It is to reserve expensive execution for cases where it
+                    adds the most information, while using cheaper checks to reject obvious failures and prioritize
+                    uncertain patches. A verifier should report both a decision and its evidence: which checks ran, what
+                    behavior they covered, what remained untested, and how confident the system is in the result.
+                </p>
+
+                <h2>Implications for reinforcement learning</h2>
+                <p>
+                    Verifier quality directly shapes the policy being trained. False positives reward incorrect behavior.
+                    False negatives suppress valid but unconventional solutions. Sparse binary rewards make credit
+                    assignment difficult across long trajectories, while predictable verifier gaps encourage agents to
+                    optimize the benchmark rather than the task.
+                </p>
+                <ul>
+                    <li><strong>Stage-aware rewards:</strong> distinguish patch application, compilation, targeted-test progress, regression safety, and full correctness.</li>
+                    <li><strong>Uncertainty-aware rewards:</strong> reduce confidence when the environment is flaky or requirement coverage is weak.</li>
+                    <li><strong>Adversarial verifier testing:</strong> search for patches that pass the oracle without satisfying the instruction.</li>
+                    <li><strong>Oracle diversity:</strong> combine independent tests, static checks, differential behavior, and semantic review.</li>
+                    <li><strong>Held-out verification:</strong> keep some checks independent from artifacts used to generate the instruction.</li>
+                    <li><strong>Failure attribution:</strong> separate agent errors from infrastructure, dependency, and flaky-test failures.</li>
+                </ul>
+                <p>
+                    Richer feedback does not necessarily mean a complicated reward function. It can also mean preserving a
+                    structured verification trace so that training algorithms can decide how to aggregate the evidence.
+                </p>
+
+                <h2>A benchmark-construction research agenda</h2>
+                <ol>
+                    <li><strong>Reproducible environments.</strong> Cache dependencies, snapshot toolchains, record external services, and continuously revalidate tasks.</li>
+                    <li><strong>Explicit requirement models.</strong> Document the behavior each test establishes and the part of the instruction it supports.</li>
+                    <li><strong>Leakage audits.</strong> Measure how much interface, edge-case, and implementation information flows from the hidden oracle into the task.</li>
+                    <li><strong>Oracle mutation testing.</strong> Introduce plausible incorrect patches and confirm that the verifier rejects them.</li>
+                    <li><strong>Counterfactual validation.</strong> Evaluate alternative correct implementations to detect tests that overfit the historical patch.</li>
+                    <li><strong>Verification economics.</strong> Report storage, setup time, execution cost, flakiness, and task yield—not just benchmark size.</li>
+                    <li><strong>Calibrated reporting.</strong> Replace unsupported certainty with evidence-backed confidence and explicit verification gaps.</li>
+                </ol>
+                <p>
+                    These practices may make some benchmarks smaller, but more trustworthy. For reinforcement learning, a
+                    smaller set of high-integrity rewards may be more valuable than a much larger set of noisy ones.
+                </p>
+
+                <h2>Conclusion</h2>
+                <p>
+                    Code verification is not the most visible part of coding-agent research. Models produce impressive
+                    demos; verification infrastructure mostly produces logs, containers, and failure reports. Yet the
+                    verifier determines what counts as success.
+                </p>
+                <p>
+                    Future progress may depend not only on collecting more tasks or training larger agents, but on
+                    building verification systems that are scalable, reliable, leakage-resistant, and capable of
+                    producing richer evidence than pass/fail.
+                </p>
+                <blockquote class="post-callout post-callout-conclusion">
+                    Without reliable verification, scaling agent trajectories may simply scale noisy rewards.
+                </blockquote>
+                <p>
+                    Before coding agents can move from impressive demonstrations to robust engineering-scale systems,
+                    code verification may prove to be one of the most important bottlenecks.
+                </p>
+                <p class="post-hashtags">#CodingAgents #AgenticRL #ReinforcementLearning #SoftwareEngineering #CodeVerification #LLM #Benchmarking #AIResearch</p>
+            </div>
+
+            <nav class="post-nav" aria-label="Blog post navigation">
+                <a href="tool-calls.html" class="post-nav-link">
+                    <span>Previous</span>
+                    <strong>A Deep Dive into Agent Tool Calls</strong>
+                </a>
+                <span class="post-nav-link disabled" aria-disabled="true">
+                    <span>Next</span>
+                    <strong>No next post</strong>
+                </span>
+            </nav>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Zijian Luo aka Jack. Built with code.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

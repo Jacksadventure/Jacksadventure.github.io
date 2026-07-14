@@ -906,6 +906,57 @@ a:hover {
     padding-left: 1.2rem;
 }
 
+.post-content strong {
+    color: var(--text-primary);
+}
+
+.post-callout {
+    border-left: 4px solid var(--text-accent);
+    border-radius: 0 8px 8px 0;
+    padding: 0.95rem 1rem;
+    background: #eff6ff;
+    color: #1e3a5f;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.08rem;
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+.post-callout-conclusion {
+    border-left-color: var(--text-accent-alt);
+    background: #ecfdf5;
+}
+
+.post-hashtags {
+    color: var(--text-accent);
+    font-size: 0.84rem;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.verification-chain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.verification-chain span {
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 0.58rem 0.68rem;
+    background: #eff6ff;
+    color: #1e40af;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+.verification-chain b {
+    color: var(--text-accent-alt);
+}
+
 .post-table-wrap {
     overflow-x: auto;
 }
