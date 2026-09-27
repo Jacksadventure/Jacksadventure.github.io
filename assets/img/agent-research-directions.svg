@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="728" viewBox="0 0 640 728" role="img" aria-labelledby="title description">
+    <title id="title">Two directions beyond coding agents</title>
+    <desc id="description">Coding agents branch into two complementary research directions. Longer-horizon agency extends coherent action across hours, days, and beyond through persistent goals, memory, and autonomous research. Human-AI interaction focuses on oversight, collaboration, and control, with humans providing guidance and agents returning evidence.</desc>
+    <defs>
+        <linearGradient id="header" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#0f172a"/>
+            <stop offset="1" stop-color="#1e3a8a"/>
+        </linearGradient>
+        <marker id="blue-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+            <path d="M0 0 L10 5 L0 10 Z" fill="#2563eb"/>
+        </marker>
+        <marker id="teal-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+            <path d="M0 0 L10 5 L0 10 Z" fill="#0f766e"/>
+        </marker>
+    </defs>
+
+    <rect width="640" height="728" fill="#ffffff"/>
+    <g font-family="Inter, Arial, sans-serif">
+        <path d="M52 140 V579" fill="none" stroke="#cbd5e1" stroke-width="3"/>
+        <path d="M52 301 H94" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#blue-arrow)"/>
+        <path d="M52 579 H94" fill="none" stroke="#0f766e" stroke-width="3" marker-end="url(#teal-arrow)"/>
+        <circle cx="52" cy="301" r="6" fill="#2563eb"/>
+        <circle cx="52" cy="579" r="6" fill="#0f766e"/>
+
+        <rect x="24" y="24" width="592" height="116" rx="16" fill="url(#header)"/>
+        <text x="320" y="76" text-anchor="middle" fill="#ffffff" font-size="34" font-weight="700">Coding agents</text>
+        <text x="320" y="111" text-anchor="middle" fill="#dbeafe" font-size="22">From repository tasks to general agency</text>
+
+        <rect x="96" y="186" width="520" height="230" rx="16" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/>
+        <text x="120" y="222" fill="#1d4ed8" font-size="18" font-weight="700" letter-spacing="1">01 / TIME &amp; AUTONOMY</text>
+        <text x="120" y="258" fill="#1e3a8a" font-size="29" font-weight="700">Longer-horizon agency</text>
+        <text x="120" y="292" fill="#334155" font-size="24">Persistent goals, memory, research</text>
+        <path d="M138 340 H575" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#blue-arrow)"/>
+        <g fill="#ffffff" stroke="#2563eb" stroke-width="3">
+            <circle cx="138" cy="340" r="7"/>
+            <circle cx="334" cy="340" r="7"/>
+            <circle cx="538" cy="340" r="7"/>
+        </g>
+        <g fill="#1e40af" font-size="24" font-weight="600" text-anchor="middle">
+            <text x="138" y="383">Hours</text>
+            <text x="334" y="383">Days</text>
+            <text x="538" y="383">Beyond</text>
+        </g>
+
+        <rect x="96" y="454" width="520" height="250" rx="16" fill="#f0fdfa" stroke="#99f6e4" stroke-width="2"/>
+        <text x="120" y="490" fill="#0f766e" font-size="18" font-weight="700" letter-spacing="1">02 / PEOPLE &amp; CONTROL</text>
+        <text x="120" y="526" fill="#134e4a" font-size="29" font-weight="700">Human-AI interaction (HCI)</text>
+        <text x="120" y="560" fill="#334155" font-size="24">Oversight, collaboration, control</text>
+        <g fill="none" stroke="#0f766e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="172" cy="606" r="11"/>
+            <path d="M150 641 V636 C150 616 194 616 194 636 V641"/>
+            <rect x="490" y="605" width="44" height="36" rx="8"/>
+            <path d="M512 597 V605 M504 631 H520"/>
+            <path d="M220 612 H463" marker-end="url(#teal-arrow)"/>
+            <path d="M464 644 H221" marker-end="url(#teal-arrow)"/>
+        </g>
+        <g fill="#0f766e">
+            <circle cx="503" cy="618" r="3"/>
+            <circle cx="521" cy="618" r="3"/>
+            <circle cx="512" cy="594" r="4"/>
+        </g>
+        <g fill="#115e59" font-size="22" text-anchor="middle">
+            <text x="342" y="601">Guidance</text>
+            <text x="342" y="677">Evidence</text>
+            <text x="172" y="677" font-weight="600">Human</text>
+            <text x="512" y="677" font-weight="600">Agent</text>
+        </g>
+    </g>
+</svg>

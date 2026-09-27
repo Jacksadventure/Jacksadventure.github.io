@@ -842,6 +842,10 @@ a:hover {
     color: inherit;
 }
 
+.blog-card[hidden] {
+    display: none;
+}
+
 .blog-card:hover h3 {
     color: var(--text-accent);
 }
@@ -1043,6 +1047,12 @@ a:hover {
     color: var(--text-muted);
     font-size: 0.82rem;
     font-weight: 700;
+}
+
+.post-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 .pipeline-visual {
