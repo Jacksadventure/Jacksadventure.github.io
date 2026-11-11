@@ -76,6 +76,32 @@ a:hover {
     padding: 0 1.75rem;
 }
 
+.internship-notice {
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    background: #eff6ff;
+    color: #334155;
+    font-size: 0.84rem;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.internship-notice strong {
+    color: var(--text-accent-alt);
+}
+
+.internship-notice a {
+    color: var(--text-accent);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.internship-notice a:focus-visible {
+    outline: 2px solid var(--text-accent);
+    outline-offset: 3px;
+}
+
 .site-nav {
     position: sticky;
     top: 0;
