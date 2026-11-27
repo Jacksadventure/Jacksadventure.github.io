@@ -85,7 +85,7 @@
                 {
                     "@type": "ScholarlyArticle",
                     "name": "Diffs Are Cheap, Show Me the Trajectory: An Empirical Study of Trajectory-Informed Code Review",
-                    "url": "https://www.alphaxiv.org/abs/2611.trajectory-informed-code-review",
+                    "url": "https://arxiv.org/pdf/2611.31316",
                     "creativeWorkStatus": "Under review"
                 },
                 {
@@ -115,23 +115,29 @@
 </head>
 
 <body>
-    <aside class="internship-notice" aria-label="Internship availability">
+    <aside class="internship-notice" aria-label="Internship availability" data-i18n-aria-label="notice.ariaLabel">
         <p>
-            <strong>Open to internships</strong> in AI agents and post-training.
-            <a href="mailto:zijianluo2000@gmail.com">Let's connect</a>
+            <span class="notice-dot" aria-hidden="true"></span>
+            <strong data-i18n="notice.strong">Open to internships</strong>
+            <span data-i18n="notice.text">in AI agents and post-training.</span>
+            <a href="mailto:zijianluo2000@gmail.com" data-i18n="notice.cta">Let's connect</a>
         </p>
     </aside>
     <nav class="site-nav">
         <div class="nav-content">
-            <a href="#" class="logo">Zijian Luo</a>
+            <a href="#" class="logo" data-i18n="nav.logo">Zijian Luo</a>
             <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#experience">Experience</a>
-                <a href="#publications">Publications</a>
-                <a href="#projects">Projects</a>
-                <a href="blog.html">Blog</a>
-                <a href="#news">News</a>
-                <a href="assets/pdf/cv.pdf" target="_blank" rel="noopener noreferrer" class="nav-btn">Resume</a>
+                <a href="#about" data-i18n="nav.about">About</a>
+                <a href="#experience" data-i18n="nav.experience">Experience</a>
+                <a href="#publications" data-i18n="nav.publications">Publications</a>
+                <a href="#projects" data-i18n="nav.projects">Projects</a>
+                <a href="blog.html" data-i18n="nav.blog">Blog</a>
+                <a href="#news" data-i18n="nav.news">News</a>
+                <a href="assets/pdf/cv.pdf" target="_blank" rel="noopener noreferrer" class="nav-btn" data-i18n="nav.resume">Resume</a>
+                <div class="lang-switcher" role="group" aria-label="Language switcher" data-i18n-aria-label="nav.langSwitcher">
+                    <button type="button" class="lang-btn active" data-lang-option="en" aria-pressed="true">EN</button>
+                    <button type="button" class="lang-btn" data-lang-option="zh" aria-pressed="false">中文</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -140,23 +146,23 @@
         <!-- Hero Section -->
         <section class="hero reveal">
             <div class="hero-copy">
-                <p class="greeting">Researcher in Code Intelligence</p>
+                <p class="greeting" data-i18n="hero.greeting">Researcher in Code Intelligence</p>
                 <h1 class="name">
-                    <span class="name-pronunciation-wrap"><span>Zijian</span>
-                        <button class="pronunciation-button" type="button" aria-label="Play pronunciation" title="Play pronunciation">
+                    <span class="name-pronunciation-wrap"><span data-i18n="hero.firstName">Zijian</span>
+                        <button class="pronunciation-button" type="button" aria-label="Play pronunciation" title="Play pronunciation" data-i18n-aria-label="hero.pronunciation" data-i18n-title="hero.pronunciation">
                             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                                 <path d="M4 9.5v5h4l5 4v-13l-5 4H4z"></path>
                                 <path d="M16 8.5a4.5 4.5 0 0 1 0 7"></path>
                                 <path d="M18.5 6a8 8 0 0 1 0 12"></path>
                             </svg>
                         </button>
-                    </span> Luo aka Jack
+                    </span> <span data-i18n="hero.restName">Luo aka Jack</span>
                 </h1>
                 <audio id="pronunciation-audio" preload="none">
                     <source src="assets/audio/pronunciation.mp3" type="audio/mpeg">
                 </audio>
-                <p class="title">PhD student in Computer Science at Monash University.</p>
-                <p class="bio">
+                <p class="title" data-i18n="hero.title">PhD student in Computer Science at Monash University.</p>
+                <p class="bio" data-i18n-html="hero.bio">
                     I am a PhD student in Computer Science at <span class="highlight">Monash University</span> under the supervision of
                     <a href="https://yqtian.com" target="_blank" rel="noopener noreferrer" class="supervisor-link">Dr. Yongqiang Tian</a>.
                     Previously, I was a Research Intern at <span class="highlight">Microsoft DKI Research Group</span>,
@@ -176,26 +182,26 @@
                         </svg>
                         <span>zijianluo2000@gmail.com</span>
                     </a>
-                    <a href="assets/pdf/cv.pdf" target="_blank" rel="noopener noreferrer" class="secondary-link">Resume</a>
+                    <a href="assets/pdf/cv.pdf" target="_blank" rel="noopener noreferrer" class="secondary-link" data-i18n="hero.resume">Resume</a>
                 </div>
                 <div class="social-links">
                     <a href="https://github.com/Jacksadventure" target="_blank" rel="me noopener noreferrer" class="social-icon">GitHub</a>
                     <a href="https://orcid.org/0009-0007-6993-2112" target="_blank" rel="me noopener noreferrer" class="social-icon">ORCID</a>
                     <a href="https://www.linkedin.com/in/zijian-luo-5647b128b" target="_blank" rel="me noopener noreferrer" class="social-icon">LinkedIn</a>
                     <a href="https://scholar.google.com/citations?user=gSCCDf4AAAAJ&hl=en" target="_blank"
-                        rel="me noopener noreferrer" class="social-icon">Scholar</a>
+                        rel="me noopener noreferrer" class="social-icon" data-i18n="hero.scholar">Scholar</a>
                 </div>
             </div>
-            <figure class="hero-portrait" aria-label="Portrait card with fun facts">
-                <button class="portrait-card" type="button" aria-pressed="false" aria-label="Flip portrait card to reveal fun facts">
+            <figure class="hero-portrait" aria-label="Portrait card with fun facts" data-i18n-aria-label="portrait.figureAria">
+                <button class="portrait-card" type="button" aria-pressed="false" aria-label="Flip portrait card to reveal fun facts" data-i18n-aria-label="portrait.buttonAria">
                     <span class="portrait-face portrait-front" aria-hidden="true">
                         <img src="assets/img/IMG_7512.jpg" alt="Portrait of Zijian Luo">
                     </span>
                     <span class="portrait-face portrait-back" aria-hidden="true">
-                        <span class="fun-facts-title">Fun Facts</span>
-                        <span class="fun-fact">My dream is to join OpenAI.</span>
-                        <span class="fun-fact">I like photography.</span>
-                        <span class="fun-fact">I like swimming.</span>
+                        <span class="fun-facts-title" data-i18n="portrait.title">Fun Facts</span>
+                        <span class="fun-fact" data-i18n="portrait.fact1">My dream is to join OpenAI.</span>
+                        <span class="fun-fact" data-i18n="portrait.fact2">I like photography.</span>
+                        <span class="fun-fact" data-i18n="portrait.fact3">I like swimming.</span>
                     </span>
                 </button>
             </figure>
@@ -203,11 +209,11 @@
 
         <!-- News Section -->
         <section id="news" class="reveal section-padding">
-            <h2 class="section-title">News</h2>
+            <h2 class="section-title" data-i18n="news.heading">News</h2>
             <div class="news-list">
                 <article class="glass-card news-item">
-                    <span class="news-date">Jun 2026</span>
-                    <p>
+                    <span class="news-date" data-i18n="news.item1.date">Jun 2026</span>
+                    <p data-i18n-html="news.item1.body">
                         <strong>Maximal Format-Free Record Repair</strong> was accepted to the
                         IEEE/ACM International Conference on Automated Software Engineering (ASE) 2026.
                     </p>
@@ -218,16 +224,16 @@
         <!-- Blog Preview Section -->
         <section id="blog-preview" class="reveal section-padding">
             <div class="section-heading-row">
-                <h2 class="section-title">Latest Blog</h2>
-                <a href="blog.html" class="section-more-link">More Blog Posts</a>
+                <h2 class="section-title" data-i18n="blog.heading">Latest Blog</h2>
+                <a href="blog.html" class="section-more-link" data-i18n="blog.more">More Blog Posts</a>
             </div>
             <a href="blog/software-engineering-research-is-dead.html" class="glass-card blog-card blog-preview-card">
                 <div class="blog-meta">
-                    <span>Sep 27, 2026</span>
-                    <span>Research Notes</span>
+                    <span data-i18n="blog.post1.date">Sep 27, 2026</span>
+                    <span data-i18n="blog.post1.category">Research Notes</span>
                 </div>
                 <h3>Software Engineering Research Is Dead</h3>
-                <p>
+                <p data-i18n="blog.post1.summary">
                     Why LLMs gave software engineering research a second life, and why the AI frontier may be moving
                     beyond code.
                 </p>
@@ -235,46 +241,46 @@
                     <span class="tag">Agents</span>
                     <span class="tag">Software Engineering</span>
                     <span class="tag">Benchmarking</span>
-                    <span class="tag">Research Notes</span>
+                    <span class="tag" data-i18n="blog.post1.category">Research Notes</span>
                 </div>
-                <span class="blog-read-more">Read post</span>
+                <span class="blog-read-more" data-i18n="blog.readMore">Read post</span>
             </a>
         </section>
 
         <div class="education-experience-layout">
             <!-- Education Section -->
-            <section id="about" class="reveal section-padding">
-                <h2 class="section-title">Education</h2>
+            <section id="about" class="reveal section-padding education-col">
+                <h2 class="section-title" data-i18n="edu.heading">Education</h2>
                 <div class="timeline">
                     <div class="glass-card timeline-item">
                         <div class="timeline-header">
-                            <h4>Doctor of Philosophy (PhD) in Computer Science</h4>
-                            <span class="date">Oct 2026 – Present</span>
+                            <h4 data-i18n="edu.monash.degree">Doctor of Philosophy (PhD) in Computer Science</h4>
+                            <span class="date" data-i18n="edu.monash.date">Oct 2026 – Present</span>
                         </div>
-                        <div class="organization">Monash University (Melbourne, Australia)</div>
+                        <div class="organization" data-i18n="edu.monash.org">Monash University (Melbourne, Australia)</div>
                     </div>
 
                     <div class="glass-card timeline-item">
                         <div class="timeline-header">
-                            <h4>Master of Philosophy (MPhil) in Computer Science</h4>
-                            <span class="date">Mar 2024 – Mar 2026</span>
+                            <h4 data-i18n="edu.usyd.degree">Master of Philosophy (MPhil) in Computer Science</h4>
+                            <span class="date" data-i18n="edu.usyd.date">Mar 2024 – Mar 2026</span>
                         </div>
-                        <div class="organization">The University of Sydney (Sydney, Australia)</div>
+                        <div class="organization" data-i18n="edu.usyd.org">The University of Sydney (Sydney, Australia)</div>
                     </div>
 
                     <div class="glass-card timeline-item">
                         <div class="timeline-header">
-                            <h4>Bachelor of Engineering (B.Eng.) in Software Engineering</h4>
-                            <span class="date">Sep 2018 – Jun 2022</span>
+                            <h4 data-i18n="edu.hbu.degree">Bachelor of Engineering (B.Eng.) in Software Engineering</h4>
+                            <span class="date" data-i18n="edu.hbu.date">Sep 2018 – Jun 2022</span>
                         </div>
-                        <div class="organization">Hebei University (Hebei, China)</div>
+                        <div class="organization" data-i18n="edu.hbu.org">Hebei University (Hebei, China)</div>
                     </div>
                 </div>
             </section>
 
             <!-- Experience Section -->
-            <section id="experience" class="reveal section-padding">
-                <h2 class="section-title">Work Experience</h2>
+            <section id="experience" class="reveal section-padding experience-col">
+                <h2 class="section-title" data-i18n="exp.heading">Work Experience</h2>
                 <div class="timeline">
                     <a href="https://www.microsoft.com/en-us/research/group/data-knowledge-intelligence/" target="_blank" rel="noopener noreferrer" class="glass-card timeline-item experience-item">
                         <div class="experience-logo" aria-hidden="true">
@@ -288,17 +294,17 @@
                         </div>
                         <div class="experience-content">
                             <div class="timeline-header">
-                                <h4>Research Intern</h4>
-                                <span class="date">Mar 2026 – Nov 2026</span>
+                                <h4 data-i18n="exp.msra.role">Research Intern</h4>
+                                <span class="date" data-i18n="exp.msra.date">Mar 2026 – Nov 2026</span>
                             </div>
-                            <div class="organization">Microsoft Research Asia (MSRA), Microsoft</div>
+                            <div class="organization" data-i18n="exp.msra.org">Microsoft Research Asia (MSRA), Microsoft</div>
                             <ul class="duties">
-                                <li>Enhanced Copilot's cross-platform code migration capability by integrating a knowledge base
+                                <li data-i18n="exp.msra.b1">Enhanced Copilot's cross-platform code migration capability by integrating a knowledge base
                                     to model platform-specific APIs, dependencies, and migration mappings.</li>
-                                <li>Built a dependency-upgrade benchmark for long-horizon software engineering tasks to evaluate
+                                <li data-i18n="exp.msra.b2">Built a dependency-upgrade benchmark for long-horizon software engineering tasks to evaluate
                                     MAI Coder's end-to-end planning and execution across multi-step workflows; the corresponding
                                     paper is under review.</li>
-                                <li>Collaborated with GitHub to propose leveraging coding-agent development trajectories as
+                                <li data-i18n="exp.msra.b3">Collaborated with GitHub to propose leveraging coding-agent development trajectories as
                                     process-aware context for Copilot Code Review (CCR) to better understand code changes; the
                                     work is under review.</li>
                             </ul>
@@ -313,15 +319,15 @@
                         </div>
                         <div class="experience-content">
                             <div class="timeline-header">
-                                <h4>Research Assistant</h4>
-                                <span class="date">May 2025 – Oct 2025</span>
+                                <h4 data-i18n="exp.oracle.role">Research Assistant</h4>
+                                <span class="date" data-i18n="exp.oracle.date">May 2025 – Oct 2025</span>
                             </div>
-                            <div class="organization">Oracle Labs, Oracle Corporation (Brisbane, Australia)</div>
+                            <div class="organization" data-i18n="exp.oracle.org">Oracle Labs, Oracle Corporation (Brisbane, Australia)</div>
                             <ul class="duties">
-                                <li>Conducted research on software supply-chain reliability by integrating LLMs with the Macaron
+                                <li data-i18n-html="exp.oracle.b1">Conducted research on software supply-chain reliability by integrating LLMs with the Macaron
                                     framework, reproducing build artifacts for over 120 open-source repositories from
                                     Libraries.io with an <span class="highlight">80% success rate</span>.</li>
-                                <li>Designed LLM-assisted workflows for defect reproduction and static-analysis validation.</li>
+                                <li data-i18n="exp.oracle.b2">Designed LLM-assisted workflows for defect reproduction and static-analysis validation.</li>
                             </ul>
                         </div>
                     </a>
@@ -331,19 +337,19 @@
 
         <!-- Publications Section -->
         <section id="publications" class="reveal section-padding">
-            <h2 class="section-title">Publications</h2>
+            <h2 class="section-title" data-i18n="pub.heading">Publications</h2>
             <div class="grid-layout">
-                <a href="https://www.alphaxiv.org/abs/2611.trajectory-informed-code-review" target="_blank" rel="noopener noreferrer" class="glass-card pub-card">
+                <a href="https://arxiv.org/pdf/2611.31316" target="_blank" rel="noopener noreferrer" class="glass-card pub-card">
                     <h4>Diffs Are Cheap, Show Me the Trajectory: An Empirical Study of Trajectory-Informed Code Review</h4>
                     <p class="authors"><strong>Zijian Luo</strong>, Pengfei Gao, Dayi Lin, Zhiyu Fan, Yongqiang Tian,
                         Alejandro Carderera de Diego, Judge Hiciano, Gemma Garriga, Qingwei Lin, Dongmei Zhang.</p>
-                    <p class="conference">alphaXiv preprint, 2026 (under review).</p>
+                    <p class="conference" data-i18n="pub.diffs.venue">arXiv preprint arXiv:2611.31316, 2026 (under review).</p>
                 </a>
                 <a href="https://arxiv.org/pdf/2608.30300" target="_blank" rel="noopener noreferrer" class="glass-card pub-card">
                     <h4>Update from Hell: Can Coding Agents Survive Hidden Breakage in Dependency Upgrades?</h4>
                     <p class="authors"><strong>Zijian Luo</strong>, Runzhi He, Pengfei Gao, Yu Kang, Zeqi Lin,
                         Minghua Ma, Qingwei Lin, Saravan Rajmohan, Yongqiang Tian.</p>
-                    <p class="conference">arXiv preprint, 2026 (under review).</p>
+                    <p class="conference" data-i18n="pub.hell.venue">arXiv preprint arXiv:2608.30300, 2026 (under review).</p>
                 </a>
                 <a href="https://rahul.gopinath.org/resources/issre2025/luo2025automatic.pdf" target="_blank" rel="noopener noreferrer" class="glass-card pub-card">
                     <h4>Automatic Data Repair without Format Specifications</h4>
@@ -384,12 +390,12 @@
         <section id="projects" class="reveal section-padding">
             <div class="two-col">
                 <div class="projects-col">
-                    <h2 class="section-title">Projects</h2>
+                    <h2 class="section-title" data-i18n="proj.heading">Projects</h2>
                     <a href="https://deeplang.org" target="_blank" rel="noopener noreferrer" class="glass-card project-card">
                         <div class="project-header">
-                            <h4>The Deeplang Programming Language (82 Stars)</h4>
+                            <h4 data-i18n="proj.deeplang.title">The Deeplang Programming Language (82 Stars)</h4>
                         </div>
-                        <p class="project-desc">
+                        <p class="project-desc" data-i18n="proj.deeplang.desc">
                             A memory-safe, multi-paradigm programming language for embedded systems. I was responsible
                             for implementing the backend virtual machine, including interpreting and executing
                             WebAssembly (WASM) code generated by the frontend.
@@ -398,10 +404,10 @@
                 </div>
 
                 <div class="skills-col">
-                    <h2 class="section-title">Technical Skills</h2>
+                    <h2 class="section-title" data-i18n="skills.heading">Technical Skills</h2>
                     <div class="glass-card skills-card">
                         <div class="skill-category">
-                            <h5>Programming Languages</h5>
+                            <h5 data-i18n="skills.lang">Programming Languages</h5>
                             <div class="tags">
                                 <span class="tag">C/C++</span>
                                 <span class="tag">Python</span>
@@ -410,7 +416,7 @@
                             </div>
                         </div>
                         <div class="skill-category mt-15">
-                            <h5>Analysis & Testing</h5>
+                            <h5 data-i18n="skills.analysis">Analysis & Testing</h5>
                             <div class="tags">
                                 <span class="tag">Fuzzing (AFL)</span>
                                 <span class="tag">Program Repair</span>
@@ -419,8 +425,11 @@
                             </div>
                         </div>
                         <div class="skill-category mt-15">
-                            <h5>Systems</h5>
+                            <h5 data-i18n="skills.aiSystems">AI & Systems</h5>
                             <div class="tags">
+                                <span class="tag">LLMs</span>
+                                <span class="tag">SFT</span>
+                                <span class="tag">RL</span>
                                 <span class="tag">Linux</span>
                                 <span class="tag">Virtual Machines</span>
                                 <span class="tag">Ghidra</span>
@@ -435,10 +444,10 @@
 
     <footer>
         <div class="related-links" aria-label="Related links">
-            <span>Friends ♥</span>
+            <span data-i18n="footer.friends">Friends ♥</span>
             <a href="https://zwrong.github.io" target="_blank" rel="noopener noreferrer">Vinen</a>
         </div>
-        <p>&copy; 2026 Zijian Luo aka Jack. Built with code.</p>
+        <p data-i18n="footer.copy">&copy; 2026 Zijian Luo aka Jack. Built with code.</p>
     </footer>
 
     <script src="script.js"></script>
