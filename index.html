@@ -204,55 +204,58 @@
                         <span class="fun-fact" data-i18n="portrait.fact3">I like swimming.</span>
                     </span>
                 </button>
+                <figcaption class="portrait-hint" data-i18n="portrait.hint">Click photo to flip</figcaption>
             </figure>
         </section>
 
-        <!-- News Section -->
-        <section id="news" class="reveal section-padding">
-            <h2 class="section-title" data-i18n="news.heading">News</h2>
-            <div class="news-list">
-                <article class="glass-card news-item">
-                    <span class="news-date" data-i18n="news.item1.date">Jun 2026</span>
-                    <p data-i18n-html="news.item1.body">
-                        <strong>Maximal Format-Free Record Repair</strong> was accepted to the
-                        IEEE/ACM International Conference on Automated Software Engineering (ASE) 2026.
-                    </p>
-                </article>
-            </div>
-        </section>
+        <div class="highlights-layout">
+            <!-- News Section -->
+            <section id="news" class="reveal section-padding highlights-col">
+                <h2 class="section-title" data-i18n="news.heading">News</h2>
+                <div class="news-list">
+                    <article class="glass-card news-item">
+                        <span class="news-date" data-i18n="news.item1.date">Jun 2026</span>
+                        <p data-i18n-html="news.item1.body">
+                            <strong>Maximal Format-Free Record Repair</strong> was accepted to the
+                            IEEE/ACM International Conference on Automated Software Engineering (ASE) 2026.
+                        </p>
+                    </article>
+                </div>
+            </section>
 
-        <!-- Blog Preview Section -->
-        <section id="blog-preview" class="reveal section-padding">
-            <div class="section-heading-row">
-                <h2 class="section-title" data-i18n="blog.heading">Latest Blog</h2>
-                <a href="blog.html" class="section-more-link" data-i18n="blog.more">More Blog Posts</a>
-            </div>
-            <a href="blog/software-engineering-research-is-dead.html" class="glass-card blog-card blog-preview-card">
-                <div class="blog-meta">
-                    <span data-i18n="blog.post1.date">Sep 27, 2026</span>
-                    <span data-i18n="blog.post1.category">Research Notes</span>
+            <!-- Blog Preview Section -->
+            <section id="blog-preview" class="reveal section-padding highlights-col">
+                <div class="section-heading-row">
+                    <h2 class="section-title" data-i18n="blog.heading">Latest Blog</h2>
+                    <a href="blog.html" class="section-more-link" data-i18n="blog.more">More Blog Posts</a>
                 </div>
-                <h3>Software Engineering Research Is Dead</h3>
-                <p data-i18n="blog.post1.summary">
-                    Why LLMs gave software engineering research a second life, and why the AI frontier may be moving
-                    beyond code.
-                </p>
-                <div class="blog-tags" aria-label="Blog topics">
-                    <span class="tag">Agents</span>
-                    <span class="tag">Software Engineering</span>
-                    <span class="tag">Benchmarking</span>
-                    <span class="tag" data-i18n="blog.post1.category">Research Notes</span>
-                </div>
-                <span class="blog-read-more" data-i18n="blog.readMore">Read post</span>
-            </a>
-        </section>
+                <a href="blog/software-engineering-research-is-dead.html" class="glass-card blog-card blog-preview-card">
+                    <div class="blog-meta">
+                        <span data-i18n="blog.post1.date">Sep 27, 2026</span>
+                        <span data-i18n="blog.post1.category">Research Notes</span>
+                    </div>
+                    <h3>Software Engineering Research Is Dead</h3>
+                    <p data-i18n="blog.post1.summary">
+                        Why LLMs gave software engineering research a second life, and why the AI frontier may be moving
+                        beyond code.
+                    </p>
+                    <div class="blog-tags" aria-label="Blog topics">
+                        <span class="tag">Agents</span>
+                        <span class="tag">Software Engineering</span>
+                        <span class="tag">Benchmarking</span>
+                        <span class="tag" data-i18n="blog.post1.category">Research Notes</span>
+                    </div>
+                    <span class="blog-read-more" data-i18n="blog.readMore">Read post</span>
+                </a>
+            </section>
+        </div>
 
         <div class="education-experience-layout">
             <!-- Education Section -->
             <section id="about" class="reveal section-padding education-col">
                 <h2 class="section-title" data-i18n="edu.heading">Education</h2>
-                <div class="timeline">
-                    <div class="glass-card timeline-item">
+                <div class="timeline edu-timeline">
+                    <div class="glass-card timeline-item edu-item edu-item-current">
                         <div class="timeline-header">
                             <h4 data-i18n="edu.monash.degree">Doctor of Philosophy (PhD) in Computer Science</h4>
                             <span class="date" data-i18n="edu.monash.date">Oct 2026 – Present</span>
@@ -260,7 +263,7 @@
                         <div class="organization" data-i18n="edu.monash.org">Monash University (Melbourne, Australia)</div>
                     </div>
 
-                    <div class="glass-card timeline-item">
+                    <div class="glass-card timeline-item edu-item">
                         <div class="timeline-header">
                             <h4 data-i18n="edu.usyd.degree">Master of Philosophy (MPhil) in Computer Science</h4>
                             <span class="date" data-i18n="edu.usyd.date">Mar 2024 – Mar 2026</span>
@@ -268,7 +271,7 @@
                         <div class="organization" data-i18n="edu.usyd.org">The University of Sydney (Sydney, Australia)</div>
                     </div>
 
-                    <div class="glass-card timeline-item">
+                    <div class="glass-card timeline-item edu-item">
                         <div class="timeline-header">
                             <h4 data-i18n="edu.hbu.degree">Bachelor of Engineering (B.Eng.) in Software Engineering</h4>
                             <span class="date" data-i18n="edu.hbu.date">Sep 2018 – Jun 2022</span>
@@ -339,7 +342,11 @@
         <section id="publications" class="reveal section-padding">
             <h2 class="section-title" data-i18n="pub.heading">Publications</h2>
             <div class="grid-layout">
-                <a href="https://arxiv.org/pdf/2611.31316" target="_blank" rel="noopener noreferrer" class="glass-card pub-card">
+                <a href="https://arxiv.org/pdf/2611.31316" target="_blank" rel="noopener noreferrer" class="glass-card pub-card pub-card-featured">
+                    <div class="pub-featured-eyebrow">
+                        <span class="rank-badge rank-featured" data-i18n="pub.latestBadge">Latest Preprint</span>
+                        <span class="rank-badge rank-preprint">arXiv:2611.31316</span>
+                    </div>
                     <h4>Diffs Are Cheap, Show Me the Trajectory: An Empirical Study of Trajectory-Informed Code Review</h4>
                     <p class="authors"><strong>Zijian Luo</strong>, Pengfei Gao, Dayi Lin, Zhiyu Fan, Yongqiang Tian,
                         Alejandro Carderera de Diego, Judge Hiciano, Gemma Garriga, Qingwei Lin, Dongmei Zhang.</p>
@@ -350,6 +357,10 @@
                     <p class="authors"><strong>Zijian Luo</strong>, Runzhi He, Pengfei Gao, Yu Kang, Zeqi Lin,
                         Minghua Ma, Qingwei Lin, Saravan Rajmohan, Yongqiang Tian.</p>
                     <p class="conference" data-i18n="pub.hell.venue">arXiv preprint arXiv:2608.30300, 2026 (under review).</p>
+                    <div class="ranking-tags" aria-label="Publication status">
+                        <span class="rank-badge rank-preprint">arXiv:2608.30300</span>
+                        <span class="rank-badge rank-muted" data-i18n="pub.underReviewBadge">Under Review</span>
+                    </div>
                 </a>
                 <a href="https://rahul.gopinath.org/resources/issre2025/luo2025automatic.pdf" target="_blank" rel="noopener noreferrer" class="glass-card pub-card">
                     <h4>Automatic Data Repair without Format Specifications</h4>

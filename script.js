@@ -144,6 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "portrait.fact1": "My dream is to join OpenAI.",
             "portrait.fact2": "I like photography.",
             "portrait.fact3": "I like swimming.",
+            "portrait.hint": "Click photo to flip",
             "news.heading": "News",
             "news.item1.date": "Jun 2026",
             "news.item1.body": "<strong>Maximal Format-Free Record Repair</strong> was accepted to the IEEE/ACM International Conference on Automated Software Engineering (ASE) 2026.",
@@ -176,6 +177,8 @@ document.addEventListener("DOMContentLoaded", () => {
             "exp.oracle.b1": 'Conducted research on software supply-chain reliability by integrating LLMs with the Macaron framework, reproducing build artifacts for over 120 open-source repositories from Libraries.io with an <span class="highlight">80% success rate</span>.',
             "exp.oracle.b2": "Designed LLM-assisted workflows for defect reproduction and static-analysis validation.",
             "pub.heading": "Publications",
+            "pub.latestBadge": "Latest Preprint",
+            "pub.underReviewBadge": "Under Review",
             "pub.diffs.venue": "arXiv preprint arXiv:2611.31316, 2026 (under review).",
             "pub.hell.venue": "arXiv preprint arXiv:2608.30300, 2026 (under review).",
             "proj.heading": "Projects",
@@ -217,6 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "portrait.fact1": "我的梦想是加入 OpenAI。",
             "portrait.fact2": "我喜欢摄影。",
             "portrait.fact3": "我喜欢游泳。",
+            "portrait.hint": "点击照片翻转",
             "news.heading": "最新动态",
             "news.item1.date": "2026年6月",
             "news.item1.body": "论文 <strong>Maximal Format-Free Record Repair</strong> 被软件工程国际顶会 IEEE/ACM ASE 2026 录用。",
@@ -249,6 +253,8 @@ document.addEventListener("DOMContentLoaded", () => {
             "exp.oracle.b1": '结合 LLM 与 Macaron 框架开展软件供应链可靠性研究，成功复现 Libraries.io 上 120+ 个开源仓库的构建产物，复现成功率达 <span class="highlight">80%</span>。',
             "exp.oracle.b2": "设计 LLM 辅助的缺陷复现与静态分析验证流程，支持软件可靠性研究。",
             "pub.heading": "学术论文",
+            "pub.latestBadge": "最新预印本",
+            "pub.underReviewBadge": "审稿中",
             "pub.diffs.venue": "arXiv 预印本 arXiv:2611.31316，2026（审稿中）。",
             "pub.hell.venue": "arXiv 预印本 arXiv:2608.30300，2026（审稿中）。",
             "proj.heading": "代表项目",
@@ -342,7 +348,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+    const sectionNavLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+    sectionNavLinks.forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
 
@@ -361,4 +368,24 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    if (sectionNavLinks.length > 0 && 'IntersectionObserver' in window) {
+        const navMap = new Map();
+        sectionNavLinks.forEach(link => {
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) navMap.set(target, link);
+        });
+
+        const spyObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    sectionNavLinks.forEach(link => link.classList.remove('active'));
+                    const activeLink = navMap.get(entry.target);
+                    if (activeLink) activeLink.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-25% 0px -60% 0px', threshold: 0 });
+
+        navMap.forEach((_, section) => spyObserver.observe(section));
+    }
 });
