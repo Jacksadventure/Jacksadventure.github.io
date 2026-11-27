@@ -705,13 +705,13 @@ html[lang="zh-CN"] .name {
 }
 
 .education-experience-layout > .education-col {
-    flex: 0.92 1 0;
+    flex: 1 1 0;
     position: sticky;
     top: 72px;
 }
 
 .education-experience-layout > .experience-col {
-    flex: 1.35 1 0;
+    flex: 1 1 0;
 }
 
 .edu-timeline {
