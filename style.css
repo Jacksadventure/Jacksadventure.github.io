@@ -841,6 +841,10 @@ html[lang="zh-CN"] .name {
     font-weight: 600;
 }
 
+.organization:last-child {
+    margin-bottom: 0;
+}
+
 .duties {
     display: grid;
     gap: 0.36rem;
